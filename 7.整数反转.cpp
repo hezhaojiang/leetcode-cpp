@@ -10,11 +10,18 @@ using namespace std;
 class Solution {
 public:
     int reverse(int x) {
-        int new_x = 0;
+        int max = 0x7FFFFFFF;
+        int min = 0x80000000;
+        long new_x = 0;
         while(x)
         {
             new_x = new_x * 10 + x % 10;
             x /= 10;
+        }
+        cout << new_x << endl;
+        if(new_x > max || new_x < min)
+        {
+            return 0;
         }
         return new_x;
     }
@@ -25,7 +32,7 @@ int main()
 {
     int ret;
     Solution slove;
-    ret = slove.reverse(1534236469);
+    ret = slove.reverse(123);
     cout << ret << endl;
     return 0;
 }

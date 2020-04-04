@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Include
+!*.cpp
+!*.c
+!*.h
+!Makefile

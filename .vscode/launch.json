@@ -5,15 +5,23 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "g++.exe - 生成和调试活动文件",
+      "type": "lldb",
+      "request": "launch",
+      "name": "LLDB",
+      "program": "${fileDirname}\\DEBUG\\a.exe",
+      "args": [],
+      "preLaunchTask": "BUILD"
+    },
+    {
+      "name": "GCC",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "program": "${fileDirname}\\DEBUG\\a.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],
-      "externalConsole": true,
+      "externalConsole": false,
       "MIMode": "gdb",
       "miDebuggerPath": "C:\\mingw64\\bin\\gdb.exe",
       "setupCommands": [
@@ -23,7 +31,7 @@
           "ignoreFailures": true
         }
       ],
-      "preLaunchTask": "g++.exe build active file"
+      "preLaunchTask": "BUILD"
     }
   ]
 }

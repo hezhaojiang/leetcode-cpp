@@ -5,13 +5,13 @@
   "tasks": [
     {
       "type": "shell",
-      "label": "g++.exe build active file",
+      "label": "BUILD",
       "command": "C:\\mingw64\\bin\\g++.exe",
       "args": [
         "-g",
         "${file}",
         "-o",
-        "${fileDirname}\\${fileBasenameNoExtension}.exe"
+        "${fileDirname}\\DEBUG\\a.exe"
       ],
       "options": {
         "cwd": "C:\\mingw64\\bin"

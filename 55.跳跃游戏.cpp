@@ -10,23 +10,19 @@ using namespace std;
 class Solution {
 public:
     bool canJump(vector<int>& nums) {
-        int i = 0;
-        int end = nums.size() - 1;
-        while(i < end)
+        int end = 0;
+        int maxPos = 0;
+        for(int i = 0; i < nums.size() - 1; i++)
         {
-            if (i + nums[i] >= end)
+            maxPos = max(i + nums[i], maxPos);
+            if(i == end)
             {
-                end = i;
-                i = 0;
+                if(end == maxPos)
+                {
+                    return false;
+                }
+                end = maxPos;
             }
-            else
-            {
-                i++;
-            }
-        }
-        if(i == end && end != 0)
-        {
-            return false;
         }
         return true;
     }

@@ -45,6 +45,7 @@ public:
         preOrder(root->left, target - root->val);
         preOrder(root->right, target - root->val);
         item.pop_back();
+        return;
     }
     vector<vector<int>> pathSum(TreeNode* root, int sum) {
         preOrder(root, sum);

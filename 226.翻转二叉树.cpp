@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode.cn id=111 lang=cpp
+ * @lc app=leetcode.cn id=226 lang=cpp
  *
- * [111] 二叉树的最小深度
+ * [226] 翻转二叉树
  */
 #include<vector>
 using namespace std;
@@ -23,24 +23,21 @@ struct TreeNode {
  * };
  */
 class Solution {
-private:
-    int minDeep;
-    vector<int> item;
 public:
-    void preOrder(TreeNode* root)
+    void Reverse(TreeNode* root)
     {
         if(!root) return;
-        item.push_back(root->val);
-        if(!root->left && !root->right && (minDeep == 0 || minDeep > item.size()))
-            minDeep = item.size();
-        preOrder(root->left);
-        preOrder(root->right);
-        item.pop_back();
+        TreeNode* temp;
+        temp = root->right;
+        root->right = root->left;
+        root->left = temp;
+        Reverse(root->left);
+        Reverse(root->right);
         return;
     }
-    int minDepth(TreeNode* root) {
-        preOrder(root);
-        return minDeep;
+    TreeNode* invertTree(TreeNode* root) {
+        Reverse(root);
+        return root;
     }
 };
 // @lc code=end

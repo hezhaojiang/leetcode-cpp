@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode.cn id=111 lang=cpp
+ * @lc app=leetcode.cn id=104 lang=cpp
  *
- * [111] 二叉树的最小深度
+ * [104] 二叉树的最大深度
  */
 #include<vector>
 using namespace std;
@@ -24,23 +24,23 @@ struct TreeNode {
  */
 class Solution {
 private:
-    int minDeep;
+    int maxDeep;
     vector<int> item;
 public:
     void preOrder(TreeNode* root)
     {
         if(!root) return;
         item.push_back(root->val);
-        if(!root->left && !root->right && (minDeep == 0 || minDeep > item.size()))
-            minDeep = item.size();
+        if(!root->left && !root->right && maxDeep < item.size())
+            maxDeep = item.size();
         preOrder(root->left);
         preOrder(root->right);
         item.pop_back();
         return;
     }
-    int minDepth(TreeNode* root) {
+    int maxDepth(TreeNode* root) {
         preOrder(root);
-        return minDeep;
+        return maxDeep;
     }
 };
 // @lc code=end

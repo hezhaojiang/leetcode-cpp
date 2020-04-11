@@ -4,6 +4,7 @@
  * [145] 二叉树的后序遍历
  */
 #include<vector>
+#include<stack>
 using namespace std;
 
 struct TreeNode {
@@ -26,19 +27,63 @@ class Solution {
 private:
     vector<int> result;
 public:
-    void midOrder(TreeNode* root)
+    void backOrder(TreeNode* root)
     {
         if(!root) return;
-        midOrder(root->left);
-        midOrder(root->right);
+        backOrder(root->left);
+        backOrder(root->right);
         result.push_back(root->val);
     }
     vector<int> postorderTraversal(TreeNode* root) {
         /* 递归 */
-        midOrder(root);
-        // TODO：非递归版本
+        // backOrder(root);
+        /* 迭代 */
+        stack<TreeNode*> node;
+        TreeNode* cur = root;
+        TreeNode* pre = nullptr;
+        while(cur || !node.empty())
+        {
+            if(cur)
+            {
+                node.push(cur);
+                cur = cur->left;
+            }
+            else
+            {
+                cur = node.top();
+                if(!cur->right)
+                {
+                    
+                    result.push_back(cur->val);
+                    node.pop();
+                    pre = cur;
+                    cur = cur->right;
+                }
+                else if(cur->right == pre)
+                {
+                    result.push_back(cur->val);
+                    node.pop();
+                    pre = cur;
+                    cur = nullptr;
+                }
+                else
+                {
+                    cur = cur->right;
+                }
+            }
+        }
         return result;
     }
 };
 // @lc code=end
-
+int main()
+{
+    TreeNode a(2);
+    TreeNode b(3);
+    TreeNode c(1);
+    a.right = &b;
+    b.right = &c;
+    Solution solve;
+    solve.postorderTraversal(&a);
+    return 0;
+}

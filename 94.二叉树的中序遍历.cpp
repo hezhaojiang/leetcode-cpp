@@ -4,6 +4,7 @@
  * [94] 二叉树的中序遍历
  */
 #include<vector>
+#include<stack>
 using namespace std;
 
 struct TreeNode {
@@ -36,8 +37,25 @@ public:
     vector<int> inorderTraversal(TreeNode* root)
     {
         /* 递归 */
-        midOrder(root);
-        // TODO：非递归版本
+        //midOrder(root);
+        /* 迭代 */
+        stack<TreeNode*> node;
+        TreeNode* cur = root;
+        while(cur || !node.empty())
+        {
+            if(cur)
+            {
+                node.push(cur);
+                cur = cur->left;
+            }
+            else
+            {
+                cur = node.top();
+                result.push_back(cur->val);
+                node.pop();
+                cur = cur->right;
+            }
+        }
         return result;
     }
 };

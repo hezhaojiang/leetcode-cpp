@@ -10,19 +10,20 @@ using namespace std;
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        if(s.length() != t.length()) return false;
-        char index[128] = { 0 };
+        //if(s.length() != t.length()) return false;
+        char indexs[128] = { 0 };
+        char indext[128] = { 0 };
         map<char, char> mapCc;
         for(int i = 0; i < s.length(); i++)
         {
-            if(mapCc.find(s[i]) == mapCc.end()) 
+            if(indexs[s[i]] == 0) 
             {
-                if(index[t[i]]) return false;
-                mapCc[s[i]] = t[i];
-                index[t[i]] = 1;
+                if(indext[t[i]]) return false;
+                indexs[s[i]] = t[i];
+                indext[t[i]] = 1;
             }
             else
-                if(mapCc[s[i]] != t[i]) return false;
+                if(indexs[s[i]] != t[i]) return false;
         }
         return true;
     }

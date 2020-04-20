@@ -3,7 +3,9 @@
  *
  * [455] 分发饼干
  */
-
+#include<vector>
+#include<algorithm>
+using namespace std;
 // @lc code=start
 class Solution {
 public:

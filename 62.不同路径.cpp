@@ -17,7 +17,7 @@ public:
             for(int j = 0; j < n; j++)
             {
                 if(i == 0 || j == 0) result[j] = 1;
-                else result[j] = result[j] +result[j - 1];
+                else result[j] = result[j] + result[j - 1];
             }
         }
         return result.back();

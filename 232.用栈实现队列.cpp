@@ -3,12 +3,13 @@
  *
  * [232] 用栈实现队列
  */
-
+#include<stack>
+using namespace std;
 // @lc code=start
 class MyQueue {
 private:
-    std::stack<int> data_stack;
-
+    std::stack<int> in;
+    std::stack<int> out;
 public:
     /** Initialize your data structure here. */
     MyQueue() {
@@ -16,36 +17,38 @@ public:
     
     /** Push element x to the back of queue. */
     void push(int x) {
-        std::stack<int> temp_stack;
-        while(!data_stack.empty())
-        {
-            temp_stack.push(data_stack.top());
-            data_stack.pop();
-        }
-        data_stack.push(x);
-        while(!temp_stack.empty())
-        {
-            data_stack.push(temp_stack.top());
-            temp_stack.pop();
-        }
+        in.push(x);
         return;
     }
     
     /** Removes the element from in front of queue and returns that element. */
     int pop() {
-        int ret = data_stack.top();
-        data_stack.pop();
+        if(out.empty())
+            while(!in.empty())
+            {
+                out.push(in.top());
+                in.pop();
+            }
+                
+        int ret = out.top();
+        out.pop();
         return ret;
     }
     
     /** Get the front element. */
     int peek() {
-        return data_stack.top();
+        if(out.empty())
+            while(!in.empty())
+            {
+                out.push(in.top());
+                in.pop();
+            }
+        return out.top();
     }
     
     /** Returns whether the queue is empty. */
     bool empty() {
-        return data_stack.empty();
+        return (in.empty() && out.empty());
     }
 };
 

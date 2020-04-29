@@ -3,7 +3,8 @@
  *
  * [225] 用队列实现栈
  */
-
+#include<queue> 
+using namespace std;
 // @lc code=start
 class MyStack {
 private:
@@ -17,17 +18,12 @@ public:
     
     /** Push element x onto stack. */
     void push(int x) {
-        std::queue<int> temp_queue;
-        temp_queue.push(x);
-        while(!data_queue.empty())
+        int length = data_queue.size();
+        data_queue.push(x);
+        while(length--)
         {
-            temp_queue.push(data_queue.front());
+            data_queue.push(data_queue.front());
             data_queue.pop();
-        }
-        while(!temp_queue.empty())
-        {
-            data_queue.push(temp_queue.front());
-            temp_queue.pop();
         }
         return;
     }

@@ -3,12 +3,15 @@
  *
  * [155] 最小栈
  */
-
+#include<vector> 
+#include<algorithm>
+#include<stack>
+using namespace std;
 // @lc code=start
 class MinStack {
 private:
-    std::stack<int> mindata;
-    std::stack<int> data;
+    int minValue;
+    std::stack<int> minStack;
 public:
     /** initialize your data structure here. */
     MinStack() {
@@ -16,30 +19,33 @@ public:
     }
     
     void push(int x) {
-        if(mindata.empty() || mindata.top() > x)
+        if(minStack.empty()) minValue = x;
+        if(x <= minValue) 
         {
-            mindata.push(x);
+            minStack.push(minValue);
+            minValue = x;
         }
-        else
-        {
-            mindata.push(mindata.top());
-        }
-        data.push(x);
+        minStack.push(x);
         return;
     }
     
     void pop() {
-        data.pop();
-        mindata.pop();
+        int topValue = minStack.top();
+        minStack.pop();
+        if(minValue == topValue)
+        {
+            minValue = minStack.top();
+            minStack.pop();
+        }
         return;
     }
     
     int top() {
-        return data.top();
+        return minStack.top();
     }
     
     int getMin() {
-        return mindata.top();
+        return minValue;
     }
 };
 

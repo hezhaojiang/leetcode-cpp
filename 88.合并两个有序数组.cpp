@@ -3,7 +3,8 @@
  *
  * [88] 合并两个有序数组
  */
-
+#include<vector>
+using namespace std;
 // @lc code=start
 class Solution {
 public:

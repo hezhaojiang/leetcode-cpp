@@ -4,6 +4,7 @@
  * [28] 实现 strStr()
  */
 #include<string>
+#include<vector>
 using namespace std;
 // @lc code=start
 
@@ -11,6 +12,7 @@ class Solution {
 public:
     int strStr(string haystack, string needle) {
 //#define FORCE /* 暴力法 */
+//#define KMP /* KMP法 */
 #ifdef FORCE
         int haylength = haystack.length();
         int nedlength = needle.length();
@@ -24,6 +26,34 @@ public:
             if(j == nedlength) return i;
         }
         return -1;
+#endif
+#ifdef KMP
+        int haylength = haystack.length();
+        int nedlength = needle.length();
+        if(0 == nedlength) return 0;
+        if(0 == haylength) return -1;
+
+        vector<int> next;
+        next.resize(nedlength);
+        next[0] = -1;
+
+        int i = 0;
+        int j = -1;
+        while(i < nedlength - 1)
+        {
+            if(j == -1 || needle[i] == needle[j]) next[++i] = ++j;
+            else j = next[j];
+        }
+
+        i = 0;
+        j = 0;
+        while((i < haylength) && (j < nedlength))
+        {
+            if(j == -1 || haystack[i] == needle[j]) { i++; j++; }
+            else j = next[j];
+        }
+        if(j == nedlength) return i - j;
+        else return -1;
 #endif
     }
 };

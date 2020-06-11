@@ -11,22 +11,19 @@ public:
     int searchInsert(vector<int>& nums, int target) {
         int left = 0;
         int right = nums.size() - 1;
-        int mid = (left + right) / 2;
-        while(mid != right)
+        int mid = left + (right - left) / 2;
+        while(left + 1 < right)
         {
             if(nums[mid] == target) return mid;
             if(nums[mid] < target) 
-            {
-                left = mid + 1;
-                mid = (left + right) / 2;
-            }
-            else
-            {
+                left = mid;
+            if(nums[mid] > target) 
                 right = mid;
-                mid = (left + right) / 2;
-            }
+            mid = left + (right - left) / 2;
         }
-        return nums[mid]<target?mid+1:mid;
+        if(target > nums[right]) return right + 1;
+        else if(target <= nums[left]) return left;
+        else return right;
     }
 };
 // @lc code=end

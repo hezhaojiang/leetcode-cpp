@@ -27,6 +27,10 @@ class Solution {
 private:
     vector<int> result;
 public:
+//#define REVERSE1
+//#define REVERSE2
+#define ITERATION
+#ifdef REVERSE1
     void preOrder(TreeNode* root)
     {
         if(!root) return;
@@ -34,10 +38,29 @@ public:
         preOrder(root->left);
         preOrder(root->right);
     }
+#endif
     vector<int> preorderTraversal(TreeNode* root) 
     {
-        /* 递归 */
-        // preOrder(root);
+#ifdef REVERSE1
+        /* 递归 1 */
+        preOrder(root);
+        return result;
+#endif
+#ifdef REVERSE2
+        /* 递归 2 */
+        vector<int> result;
+        if(!root) return result;
+
+        vector<int> left = preorderTraversal(root->left);
+        vector<int> right = preorderTraversal(root->right);
+
+        result.push_back(root->val);
+        result.insert(result.end(), left.begin(), left.end());
+        result.insert(result.end(), right.begin(), right.end());
+
+        return result;
+#endif
+#ifdef ITERATION
         /* 迭代 */
         stack<TreeNode*> node;
         TreeNode* cur = root;
@@ -57,6 +80,7 @@ public:
             }
         }
         return result;
+#endif
     }
 };
 // @lc code=end

@@ -23,26 +23,11 @@ struct TreeNode {
  * };
  */
 class Solution {
-private:
-    bool result;
 public:
-    void preOrder(TreeNode* p, TreeNode* q)
-    {
-        if(!result) return;
-        if(!p && !q) return;
-        if((p && !q) || (!p && q) || (p->val != q->val))
-        {
-            result = false;
-            return;
-        }
-        preOrder(p->left, q->left);
-        preOrder(p->right, q->right);
-        return;
-    }
     bool isSameTree(TreeNode* p, TreeNode* q) {
-        result = true;
-        preOrder(p, q);
-        return result;
+        if(!p || !q) return p == q;
+        if(p->val != q->val) return false;
+        return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
     }
 };
 // @lc code=end

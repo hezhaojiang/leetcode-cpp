@@ -24,12 +24,35 @@ struct TreeNode {
  * };
  */
 class Solution {
-private:
-    vector<int> result;
-public:
 //#define REVERSE1
 //#define REVERSE2
-#define ITERATION
+//#define ITERATION
+#define MORRIS
+private:
+    vector<int> result;
+    TreeNode* rightReverse(TreeNode* root) {
+        TreeNode* head = nullptr;
+        while(root)
+        {
+            TreeNode* next = root->right;
+            root->right = head;
+            head = root;
+            root = next;
+        }
+        return head;
+    }
+    void printEdge (TreeNode* root) {
+        root = rightReverse(root); // 逆
+        TreeNode *head = root;
+        while (head != NULL) {
+            result.push_back(head->val);
+            head = head->right;
+        }
+        root = rightReverse(root); // 反逆
+    }
+
+public:
+
 #ifdef REVERSE1
     void backOrder(TreeNode* root)
     {
@@ -72,7 +95,7 @@ public:
                 cur = node.top();
                 if(!cur->right)
                 {
-                    
+
                     result.push_back(cur->val);
                     node.pop();
                     pre = cur;
@@ -91,6 +114,42 @@ public:
                 }
             }
         }
+        return result;
+#endif
+#ifdef MORRIS
+        if(!root) return result;
+        TreeNode* cur = root;
+        while(cur)
+        {
+            if(cur->left)
+            {
+                /* 如果存在左子树，则需要设置索引 */
+                TreeNode* index = cur->left;
+                while(index->right && index->right != cur)
+                {
+                    index = index->right;
+                }
+
+                if(!index->right)
+                {
+                    /* 首次寻找到索引，设置索引，继续遍历左子树 */
+                    index->right = cur;
+                    cur = cur->left;
+                    continue;
+                }
+                else
+                {
+                    /* 非首次寻找到索引，说明左子树遍历完成，恢复索引 */
+                    index->right = nullptr;
+                    /* 逆序打印左子树的右子树 */
+                    printEdge(cur->left);
+                }
+            }
+            /* 没有左子树 遍历右子树 */
+            cur = cur->right;
+        }
+        /* 逆序打印跟节点的右子树 */
+        printEdge(root);
         return result;
 #endif
     }

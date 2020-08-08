@@ -24,35 +24,36 @@ struct TreeNode {
  * };
  */
 class Solution {
+private:
+    void exChange(TreeNode* x, TreeNode* y)
+    {
+        x->val = x->val ^ y->val;
+        y->val = x->val ^ y->val;
+        x->val = x->val ^ y->val;
+    }
 public:
     void recoverTree(TreeNode* root) {
-        if(!root) return;
+        if (!root) return;
         TreeNode* cur = root;
         TreeNode* x = nullptr;
         TreeNode* y = nullptr;
         TreeNode* pre = nullptr;
-        while(cur)
+        while (cur)
         {
-            if(cur->left)
-            {
+            if (cur->left) {
                 /* 如果存在左子树，则需要设置索引 */
                 TreeNode* index = cur->left;
-                while(index->right && index->right != cur)
-                {
+                while (index->right && index->right != cur)
                     index = index->right;
-                }
                 
-                if(!index->right)
-                {
+                if (!index->right) {
                     /* 首次寻找到索引，设置索引，继续遍历左子树 */
                     index->right = cur;
                     cur = cur->left;
                 }
-                else
-                {
+                else {
                     /* 非首次寻找到索引，说明左子树遍历完成，根据索引去遍历右子树 */
-                    if(pre && pre->val > cur->val)
-                    {
+                    if (pre && pre->val > cur->val) {
                         y = cur;
                         if(!x) x = pre;
                     }    
@@ -62,11 +63,9 @@ public:
                     index->right = nullptr;
                 }
             }
-            else
-            {
+            else {
                 /* 没有左子树 遍历右子树 */
-                if(pre && pre->val > cur->val)
-                {
+                if (pre && pre->val > cur->val) {
                     y = cur;
                     if(!x) x = pre;
                 }
@@ -74,9 +73,7 @@ public:
                 cur = cur->right;
             }
         }
-        int temp = x->val;
-        x->val = y->val;
-        y->val = temp;
+        exChange(x, y);
         return;
     }
 };

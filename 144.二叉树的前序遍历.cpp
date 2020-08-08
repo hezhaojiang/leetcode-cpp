@@ -29,7 +29,8 @@ private:
 public:
 //#define REVERSE1
 //#define REVERSE2
-#define ITERATION
+//#define ITERATION
+#define MORRIS
 #ifdef REVERSE1
     void preOrder(TreeNode* root)
     {
@@ -76,6 +77,44 @@ public:
             {
                 cur = node.top();
                 node.pop();
+                cur = cur->right;
+            }
+        }
+        return result;
+#endif
+#ifdef MORRIS
+        if(!root) return result;
+        TreeNode* cur = root;
+        while(cur)
+        {
+            if(cur->left)
+            {
+                /* 如果存在左子树，则需要设置索引 */
+                TreeNode* index = cur->left;
+                while(index->right && index->right != cur)
+                {
+                    index = index->right;
+                }
+                
+                if(!index->right)
+                {
+                    /* 首次寻找到索引，设置索引，继续遍历左子树 */
+                    result.push_back(cur->val);
+                    index->right = cur;
+                    cur = cur->left;
+                }
+                else
+                {
+                    /* 非首次寻找到索引，说明左子树遍历完成，根据索引去遍历右子树 */
+                    cur = cur->right;
+                    /* 恢复索引 */
+                    index->right = nullptr;
+                }
+            }
+            else
+            {
+                /* 没有左子树 遍历右子树 */
+                result.push_back(cur->val);
                 cur = cur->right;
             }
         }

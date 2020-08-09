@@ -37,11 +37,10 @@ struct TreeNode {
  */
 class Solution {
 private:
-    vector<int>nums;
-    vector<TreeNode> Tree;
+    vector<int> nums;
     TreeNode* halfDevide(int start, int end)
     {
-        int mid = (start + end) / 2;
+        int mid = start + (end - start) / 2;
         TreeNode* root = new TreeNode(nums[mid]);
         if(start != mid) root->left = halfDevide(start, mid - 1);
         if(mid != end) root->right = halfDevide(mid + 1, end);

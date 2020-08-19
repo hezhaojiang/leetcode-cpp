@@ -65,16 +65,14 @@ public:
         /* 迭代 */
         stack<TreeNode*> node;
         TreeNode* cur = root;
-        while(cur || !node.empty())
+        while (cur || !node.empty())
         {
-            if(cur)
-            {
+            if (cur) {
                 node.push(cur);
                 result.push_back(cur->val);
                 cur = cur->left;
             }
-            else
-            {
+            else {
                 cur = node.top();
                 node.pop();
                 cur = cur->right;

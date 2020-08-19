@@ -30,6 +30,7 @@ class Solution {
 #define MORRIS
 private:
     vector<int> result;
+#ifdef MORRIS
     TreeNode* rightReverse(TreeNode* root) {
         TreeNode* head = nullptr;
         while(root)
@@ -50,9 +51,7 @@ private:
         }
         root = rightReverse(root); // 反逆
     }
-
-public:
-
+#endif
 #ifdef REVERSE1
     void backOrder(TreeNode* root)
     {
@@ -62,6 +61,9 @@ public:
         result.push_back(root->val);
     }
 #endif
+
+public:
+
     vector<int> postorderTraversal(TreeNode* root) {
 #ifdef REVERSE1
         /* 递归 */
@@ -83,35 +85,20 @@ public:
         stack<TreeNode*> node;
         TreeNode* cur = root;
         TreeNode* pre = nullptr;
-        while(cur || !node.empty())
-        {
-            if(cur)
-            {
+        while (cur || !node.empty()) {
+            if (cur) {
                 node.push(cur);
                 cur = cur->left;
             }
-            else
-            {
+            else {
                 cur = node.top();
-                if(!cur->right)
-                {
-
-                    result.push_back(cur->val);
-                    node.pop();
-                    pre = cur;
-                    cur = cur->right;
-                }
-                else if(cur->right == pre)
-                {
+                if (cur->right == nullptr || cur->right == pre) {
                     result.push_back(cur->val);
                     node.pop();
                     pre = cur;
                     cur = nullptr;
                 }
-                else
-                {
-                    cur = cur->right;
-                }
+                else cur = cur->right;
             }
         }
         return result;

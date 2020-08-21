@@ -23,24 +23,13 @@ struct TreeNode {
  * };
  */
 class Solution {
-private:
-    int minDeep;
-    vector<int> item;
 public:
-    void preOrder(TreeNode* root)
-    {
-        if(!root) return;
-        item.push_back(root->val);
-        if(!root->left && !root->right && (minDeep == 0 || minDeep > item.size()))
-            minDeep = item.size();
-        preOrder(root->left);
-        preOrder(root->right);
-        item.pop_back();
-        return;
-    }
     int minDepth(TreeNode* root) {
-        preOrder(root);
-        return minDeep;
+        if (!root) return 0;
+        if (root->left && root->right) return min(minDepth(root->left), minDepth(root->right)) + 1;
+        else if (root->left) return minDepth(root->left) + 1;
+        else if (root->right) return minDepth(root->right) + 1;
+        else return 1;
     }
 };
 // @lc code=end

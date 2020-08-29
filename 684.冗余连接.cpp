@@ -6,61 +6,55 @@
 #include<vector>
 using namespace std;
 // @lc code=start
-class UnionFind{
+class UnionFind {
 private:
-    vector<int> parent;
-    vector<int> size;
-    int count;
+    std::vector<int> parent;
+    std::vector<int> rank;
 public:
-    UnionFind(vector<vector<int>>& M){
-        int n = M.size();
-        parent.resize(n + 1);
-        size.resize(n + 1);
-        count = n;
-        for(int i = 1; i < n + 1; i++){
+    UnionFind(int size) : parent(std::vector<int>(size)) ,rank(std::vector<int>(size)) {
+        for (int i = 0; i < size; i++) {
             parent[i] = i;
-            size[i] = 1;  
+            rank[i] = 0;
         }
-                
     }
-    int find(int p){
-        while(p != parent[p]){
-            parent[p] = parent[parent[p]];
-            p = parent[p];
+    void MakeSet(int x) {
+        if (x < parent.size()) parent[x] = x;
+        else {
+            int osize = parent.size();
+            parent.resize(x + 1);
+            rank.resize(x + 1);
+            for (int i = osize; i <= x; i++) {
+                parent[i] = i;
+                rank[i] = 0;
+            }
         }
-        return p;
     }
-    void connect(int p, int q){
-        int rootp = find(p);
-        int rootq = find(q);
-        if(rootp == rootq) return;
-        if(size[rootp] < size[rootq]){
-            parent[rootp] = rootq;
-            size[rootq] += size[rootp];
-        }
-        else{
-            parent[rootq] = rootp;
-            size[rootp] += size[rootq];
-        }        
-        count--;
+    int Find(int x) {
+        if (parent[x] != x) parent[x] = Find(parent[x]);
+        return parent[x];
     }
-    int getcount(){
-        return count;
+    void Union(int x, int y) {
+        int xRoot = Find(x);
+        int yRoot = Find(y);
+        if (xRoot == yRoot) return;
+        if (rank[xRoot] < rank[yRoot]) parent[xRoot] = yRoot;
+        else if (rank[xRoot] > rank[yRoot]) parent[yRoot] = xRoot;
+        else { parent[yRoot] = xRoot; rank[xRoot]++; }
     }
 };
+
 class Solution {
 public:
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
         int n = edges.size();
-        UnionFind uf(edges);        
+        UnionFind uf(n + 1);
         for(int i = 0; i < n; i++){
-            int rootp = uf.find(edges[i][0]);
-            int rootq = uf.find(edges[i][1]);
+            int rootp = uf.Find(edges[i][0]);
+            int rootq = uf.Find(edges[i][1]);
             if(rootp == rootq) return edges[i];
-            uf.connect(rootp, rootq);
+            uf.Union(rootp, rootq);
         }
         return {};
     }
 };
 // @lc code=end
-

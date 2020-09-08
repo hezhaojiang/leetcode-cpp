@@ -10,15 +10,10 @@ class Solution {
 private:
     vector<vector<int>> result;
 public:
-    void backtrack(int n, int k, vector<int>& item, vector<vector<int>>& result)
-    {
-        if(0 == k)
-        {
-            result.push_back(item);
-            return;
-        }
-        if(n != 0)
-        {
+    void backtrack(int n, int k, vector<int>& item, vector<vector<int>>& result) {
+        if (k > n) return;
+        if (0 == k) return result.push_back(item);
+        if (n != 0) {
             item.push_back(n);
             backtrack(n - 1, k - 1, item, result);
             item.pop_back();
@@ -26,8 +21,7 @@ public:
         }
         return;
     }
-    vector<vector<int>> combine(int n, int k)
-    {
+    vector<vector<int>> combine(int n, int k) {
         vector<int> item;
         backtrack(n, k, item, result);
         return result;

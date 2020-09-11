@@ -11,19 +11,13 @@ private:
     vector<int> item;
     vector<vector<int>> result;
 public:
-    void backtrack(int left, int begin, int target, int curNum)
-    {
-        if(target == curNum && left == 0)
-        {
+    void backtrack(int left, int begin, int target, int curNum) {
+        if(target == curNum && left == 0) {
             result.push_back(item);
             return;
         }
-        if(begin <= 9 && curNum < target)
-        {
-            if(curNum + begin > target)
-            {
-                return;
-            }
+        if(begin < 10 && curNum < target) {
+            if(curNum + begin > target) return;
             item.push_back(begin);
             backtrack(left - 1, begin + 1, target, curNum + begin);
             item.pop_back();
@@ -31,8 +25,8 @@ public:
         }
         return;
     }
-    vector<vector<int>> combinationSum3(int k, int n)
-    {
+    vector<vector<int>> combinationSum3(int k, int n) {
+        if (n > 45) return result;
         backtrack(k, 1, n, 0);
         return result;
     }

@@ -13,30 +13,18 @@ private:
     vector<int> item;
     vector<vector<int>> result;
 public:
-    void backtrack(vector<int>& candidates, int k, int target, int val, vector<vector<int>>& result)
-    {
-        if(val == target)
-        {
-            result.push_back(item);
-            return;
-        }
-        if(candidates.size() == k)
-        {
-            return;
-        }
+    void backtrack(vector<int>& candidates, int k, int target, int val, vector<vector<int>>& result) {
+        if(val == target) return result.push_back(item);
+        if(candidates.size() == k) return;
 
         int index = 1;
-        if(val <= target)
-        {
+        if (val <= target) {
             item.push_back(candidates[k]);
-            while(candidates.size() - 1 != k && candidates[k] == candidates[k + 1])
-            {
-                k++;
+            while(candidates.size() - 1 != k && candidates[k] == candidates[k + 1]) {
                 index++;
-                item.push_back(candidates[k]);
+                item.push_back(candidates[k++]);
             }
-            while(index)
-            {
+            while (index) {
                 backtrack(candidates, k + 1, target, val + index * candidates[k], result);
                 item.pop_back();
                 index--;
@@ -54,8 +42,7 @@ public:
     }
 };
 // @lc code=end
-int main()
-{
+int main() {
     Solution solve;
     vector<int> candidates;
     candidates.push_back(1);

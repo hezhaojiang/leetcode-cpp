@@ -29,16 +29,14 @@ private:
     vector<int> result;
 public:
 #ifdef RECURSIVE
-    void midOrder(TreeNode* root)
-    {
-        if(!root) return;
+    void midOrder(TreeNode* root) {
+        if (!root) return;
         midOrder(root->left);
         result.push_back(root->val);
         midOrder(root->right);
     }
 #endif
-    vector<int> inorderTraversal(TreeNode* root)
-    {
+    vector<int> inorderTraversal(TreeNode* root) {
 #ifdef RECURSIVE
         /* 递归 */
         //midOrder(root);
@@ -47,15 +45,12 @@ public:
         /* 迭代 */
         stack<TreeNode*> node;
         TreeNode* cur = root;
-        while(cur || !node.empty())
-        {
-            if(cur)
-            {
+        while(cur || !node.empty()) {
+            if(cur) {
                 node.push(cur);
                 cur = cur->left;
             }
-            else
-            {
+            else {
                 cur = node.top();
                 result.push_back(cur->val);
                 node.pop();
@@ -67,25 +62,19 @@ public:
 #ifdef MORRIS
         if(!root) return result;
         TreeNode* cur = root;
-        while(cur)
-        {
-            if(cur->left)
-            {
+        while (cur) {
+            if (cur->left) {
                 /* 如果存在左子树，则需要设置索引 */
                 TreeNode* index = cur->left;
-                while(index->right && index->right != cur)
-                {
+                while (index->right && index->right != cur)
                     index = index->right;
-                }
                 
-                if(!index->right)
-                {
+                if (!index->right) {
                     /* 首次寻找到索引，设置索引，继续遍历左子树 */
                     index->right = cur;
                     cur = cur->left;
                 }
-                else
-                {
+                else {
                     /* 非首次寻找到索引，说明左子树遍历完成，根据索引去遍历右子树 */
                     result.push_back(cur->val);
                     cur = cur->right;
@@ -93,8 +82,7 @@ public:
                     index->right = nullptr;
                 }
             }
-            else
-            {
+            else {
                 /* 没有左子树 遍历右子树 */
                 result.push_back(cur->val);
                 cur = cur->right;

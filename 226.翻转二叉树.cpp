@@ -4,6 +4,7 @@
  * [226] 翻转二叉树
  */
 #include<vector>
+#include<queue>
 using namespace std;
 
 struct TreeNode {
@@ -23,20 +24,32 @@ struct TreeNode {
  * };
  */
 class Solution {
-public:
-    void Reverse(TreeNode* root)
-    {
+private:
+#ifdef REVERSE
+    void Reverse(TreeNode* root) {
         if(!root) return;
         TreeNode* temp;
-        temp = root->right;
-        root->right = root->left;
-        root->left = temp;
+        swap(root->right, root->left);
         Reverse(root->left);
         Reverse(root->right);
         return;
     }
+#endif
+public:
     TreeNode* invertTree(TreeNode* root) {
+#ifdef REVERSE
         Reverse(root);
+#endif
+        queue<TreeNode*> Q;
+        if (!root) return root;
+        Q.push(root);
+        while (!Q.empty()) {
+            TreeNode* T = Q.front();
+            swap(T->right, T->left);
+            if (T->left) Q.push(T->left);
+            if (T->right) Q.push(T->right);
+            Q.pop();
+        }
         return root;
     }
 };

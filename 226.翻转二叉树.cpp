@@ -24,22 +24,15 @@ struct TreeNode {
  * };
  */
 class Solution {
-private:
-#ifdef REVERSE
-    void Reverse(TreeNode* root) {
-        if(!root) return;
-        TreeNode* temp;
-        swap(root->right, root->left);
-        Reverse(root->left);
-        Reverse(root->right);
-        return;
-    }
-#endif
 public:
     TreeNode* invertTree(TreeNode* root) {
 #ifdef REVERSE
-        Reverse(root);
-#endif
+        if (root) {
+            swap(root->right, root->left);
+            invertTree(root->left);
+            invertTree(root->right);
+        }
+#else
         queue<TreeNode*> Q;
         if (!root) return root;
         Q.push(root);
@@ -50,6 +43,7 @@ public:
             if (T->right) Q.push(T->right);
             Q.pop();
         }
+#endif
         return root;
     }
 };

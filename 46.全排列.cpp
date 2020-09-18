@@ -13,20 +13,16 @@ class Solution {
     vector<int> item;
     vector<vector<int>> result;
 public:
-    void backtracking(vector<int>& nums)
-    {
-        if(item.size() == nums.size())
-        {
+    void dfs(vector<int>& nums) {
+        if (item.size() == nums.size()) {
             result.push_back(item);
             return;
         }
-        for(int i = 0; i < nums.size(); i++)
-        {
-            if(0 != flag[i])
-            {
+        for (int i = 0; i < nums.size(); i++) {
+            if (0 != flag[i]) {
                 item.push_back(nums[i]);
                 flag[i] = 0;
-                backtracking(nums);
+                dfs(nums);
                 flag[i] = 1;
                 item.pop_back();
             }
@@ -34,13 +30,9 @@ public:
         return;
     }
 
-    vector<vector<int>> permute(vector<int>& nums) 
-    {
-        for(int i = 0; i < nums.size(); i++)
-        {
-            flag.push_back(1);
-        }
-        backtracking(nums);
+    vector<vector<int>> permute(vector<int>& nums) {
+        for (int i = 0; i < nums.size(); i++) flag.push_back(1);
+        dfs(nums);
         return result;
     }
 };

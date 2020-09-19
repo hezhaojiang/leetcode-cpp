@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode.cn id=207 lang=cpp
+ * @lc app=leetcode.cn id=210 lang=cpp
  *
- * [207] 课程表
+ * [210] 课程表 II
  */
 #include<vector>
 #include<queue>
@@ -9,29 +9,18 @@ using namespace std;
 // @lc code=start
 class Solution {
 private:
-    bool can = true;
     vector<int> visited;           /* 检测是否已遍历过 */
     vector<vector<int>> edges;     /* 记录先修课程 */
-    bool findCircle(int u) {
-        if (visited[u] == 1) return true;
-        else if (visited[u] == 2) return false;
-        visited[u] = 1;
-        for (int v : edges[u]) if (findCircle(v)) return true;
-        visited[u] = 2;
-        return false;
-    }
 public:
-    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-#ifdef DFS
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
         vector<int> in_degree(numCourses);
         vector<vector<int>> edges(numCourses);
         queue<int> Q;
+        vector<int> CourseOrder;
         int LearnCources = 0;
 
         /* 构建邻接表，表示每个顶点连接的下一个顶点 */
         for (auto req : prerequisites) {
-            /* 例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们：[0,1]
-             * 即：[0,1] 表示先学 1 才能再学 0 */
             in_degree[req[0]]++;
             edges[req[1]].push_back(req[0]);
         }
@@ -40,6 +29,7 @@ public:
         for (int i = 0; i < numCourses; i++) {
             if (in_degree[i] == 0) {
                 Q.push(i);
+                CourseOrder.push_back(i);
                 LearnCources++;
             }
         }
@@ -49,24 +39,15 @@ public:
             for (auto edge : edges[Q.front()]) {
                 if(--in_degree[edge] == 0) {
                     Q.push(edge);
+                    CourseOrder.push_back(edge);
                     LearnCources++;
                 }
             }
             Q.pop();
-        }
-            
+        }  
 
-        if (LearnCources == numCourses) return true;
-        return false;
-#endif
-        edges.resize(numCourses);
-        visited.resize(numCourses);
-
-        for (const auto & info: prerequisites) edges[info[1]].push_back(info[0]);
-
-        for (int i = 0; i < numCourses && can; ++i)
-            if (!visited[i] && findCircle(i)) return false;
-        return true;
+        if (LearnCources == numCourses) return CourseOrder;
+        else return vector<int>{};
     }
 };
 // @lc code=end

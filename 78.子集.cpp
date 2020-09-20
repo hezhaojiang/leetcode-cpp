@@ -8,30 +8,33 @@ using namespace std;
 // @lc code=start
 class Solution {
 private:
+#ifdef DFS
+    vector<int> item;
+#endif
     vector<vector<int>> result;
 public:
-    void backtracking(
-        int i,
-        vector<int>& nums,
-        vector<int>& item,
-        vector<vector<int>>& res
-    )
-    {
-        if(0 != i)
-        {
-            item.push_back(nums[i - 1]);
-            res.push_back(item);
-            backtracking(i - 1, nums, item, res);
-            item.pop_back();
-            backtracking(i - 1, nums, item, res);
-        }
-        return;
+#ifdef DFS
+    void dfs(int i, vector<int>& nums) {
+        if (i == 0) return result.push_back(item);
+        dfs(i - 1, nums);
+        item.push_back(nums[i - 1]);
+        dfs(i - 1, nums);
+        return item.pop_back();
     }
+#endif
 
     vector<vector<int>> subsets(vector<int>& nums) {
-        vector<int> item;
-        result.push_back(item);
-        backtracking(nums.size(), nums, item, result);
+#ifdef DFS
+        dfs(nums.size(), nums);
+#endif
+        result.push_back(vector<int>{});
+        for (auto num : nums) {
+            int count = result.size();
+            for (int i = 0; i < count; i++) {
+                result.push_back(result[i]);
+                result[i + count].push_back(num);
+            }
+        }
         return result;
     }
 };

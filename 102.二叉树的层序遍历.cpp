@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode.cn id=103 lang=cpp
+ * @lc app=leetcode.cn id=102 lang=cpp
  *
- * [103] 二叉树的锯齿形层次遍历
+ * [102] 二叉树的层次遍历
  */
 #include<vector>
 #include<queue>
@@ -25,12 +25,11 @@ struct TreeNode {
  */
 class Solution {
 public:
-    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+    vector<vector<int>> levelOrder(TreeNode* root) {
         vector<vector<int>> result;
         if (!root) return result;
         queue<TreeNode*> Que;
         vector<int> item;
-        int line;
         Que.push(root);
         while (!Que.empty()) {
             int count = Que.size();
@@ -41,7 +40,6 @@ public:
                 item.push_back(curQ->val);
                 Que.pop();
             }
-            if(++line % 2 == 0) reverse(item.begin(), item.end());
             result.push_back(item);
             item.clear();
         }

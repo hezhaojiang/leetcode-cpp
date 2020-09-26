@@ -28,13 +28,10 @@ private:
     vector<int> item;
     vector<vector<int>> result;
 public:
-    void preOrder(TreeNode* root, int target)
-    {
-        if(!root) return;
-        if(!root->left && !root->right)
-        {
-            if(root->val == target)
-            {
+    void preOrder(TreeNode* root, int target) {
+        if (!root) return;
+        if (!root->left && !root->right) {
+            if (root->val == target) {
                 item.push_back(root->val);
                 result.push_back(item);
                 item.pop_back();

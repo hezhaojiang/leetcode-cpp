@@ -42,20 +42,17 @@ public:
 
 class Solution {
 private:
-    void SeqTraverse(Node* root)
-    {
-        while(root)
-        {
+    void SeqTraverse(Node* root) {
+        while (root) {
             Node* level = root;
             Node* next = nullptr;
             Node* pre = nullptr;
-            while(level)
-            {
-                if(pre && level->left) pre->next = level->left;
-                if(level->left) pre = level->left;
-                if(pre && level->right) pre->next = level->right;
-                if(level->right) pre = level->right;
-                if(!next) next = level->left?level->left:level->right;
+            while (level) {
+                if (pre && level->left) pre->next = level->left;
+                if (level->left) pre = level->left;
+                if (pre && level->right) pre->next = level->right;
+                if (level->right) pre = level->right;
+                if (!next) next = level->left?level->left:level->right;
                 level = level->next;
             }
             root = next;

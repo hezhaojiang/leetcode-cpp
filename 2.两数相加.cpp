@@ -19,16 +19,14 @@ struct ListNode {
  */
 class Solution {
 public:
-    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) 
-    {
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2)  {
         ListNode  pre_head(0);
         ListNode* currNode = &pre_head;
 
         int flag = 0;
         int val = 0;
 
-        while(l1 && l2)
-        {
+        while(l1 && l2) {
             val = l1->val + l2->val + flag;
             ListNode* node = new ListNode(val % 10);
             currNode->next = node;
@@ -37,8 +35,7 @@ public:
             l2 = l2->next;
             currNode = currNode->next;
         }
-        while(l1)
-        {
+        while(l1) {
             val = l1->val + flag;
             ListNode* node = new ListNode(val % 10);
             currNode->next = node;
@@ -46,8 +43,7 @@ public:
             l1 = l1->next;
             currNode = currNode->next;
         }
-        while(l2)
-        {
+        while(l2) {
             val = l2->val + flag;
             ListNode* node = new ListNode(val % 10);
             currNode->next = node;
@@ -55,8 +51,7 @@ public:
             l2 = l2->next;
             currNode = currNode->next;
         }
-        if(flag)
-        {
+        if(flag) {
             ListNode* node = new ListNode(1);
             currNode->next = node;
         }

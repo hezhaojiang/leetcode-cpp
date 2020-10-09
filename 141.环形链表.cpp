@@ -3,7 +3,11 @@
  *
  * [141] 环形链表
  */
-
+struct ListNode {
+    int val;
+    ListNode *next;
+ ListNode(int x) : val(x), next(NULL) {}
+};
 // @lc code=start
 /**
  * Definition for singly-linked list.
@@ -19,21 +23,12 @@ public:
         ListNode* slow = head;
         ListNode* fast = head;
 
-        while(fast)
-        {
+        while (fast) {
             slow = slow->next;
             fast = fast->next;
-            if(nullptr == fast)
-            {
-                break;
-            }
-
+            if (!fast) break;
             fast = fast->next;
-
-            if(slow == fast)
-            {
-                return true;
-            }
+            if (slow == fast) return true;
         }
         return false;
     }

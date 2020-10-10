@@ -3,7 +3,11 @@
  *
  * [142] 环形链表 II
  */
-
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
 // @lc code=start
 /**
  * Definition for singly-linked list.
@@ -15,37 +19,27 @@
  */
 class Solution {
 public:
-    ListNode *detectCycle(ListNode *head) 
-    {
+    ListNode *detectCycle(ListNode *head)  {
         ListNode* slow = head;
         ListNode* fast = head;
         ListNode* meet = nullptr;
 
-        while(fast)
-        {
+        while (fast) {
             slow = slow->next;
             fast = fast->next;
-            if(nullptr == fast)
-            {
-                break;
-            }
+            if (nullptr == fast) break;
 
             fast = fast->next;
 
-            if(slow == fast)
-            {
+            if (slow == fast) {
                 meet = slow;
                 fast = head;
                 break;
             }
         }
 
-        while(meet)
-        {
-            if(slow == fast)
-            {
-                return slow;
-            }
+        while (meet) {
+            if (slow == fast) return slow;
             slow = slow->next;
             fast = fast->next;
         }

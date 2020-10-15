@@ -15,9 +15,7 @@ public:
     Node* next;
 
     Node() : val(0), left(NULL), right(NULL), next(NULL) {}
-
     Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) {}
-
     Node(int _val, Node* _left, Node* _right, Node* _next)
         : val(_val), left(_left), right(_right), next(_next) {}
 };
@@ -42,16 +40,13 @@ public:
 
 class Solution {
 private:
-    void SeqTraverse(Node* root)
-    {
-        while(root->left)
-        {
+    void SeqTraverse(Node* root) {
+        while (root->left) {
             Node* level = root;
             Node* pre = nullptr;
-            while(level)
-            {
+            while (level) {
                 level->left->next = level->right;
-                if(pre) pre->next = level->left;
+                if (pre) pre->next = level->left;
                 pre = level->right;
                 level = level->next;
             }

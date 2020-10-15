@@ -27,12 +27,10 @@ public:
         ListNode* pre_curr = &pre_head;
         ListNode* next1 = nullptr;
         ListNode* next2 = nullptr;
-        while(head)
-        {
+        while (head) {
             next1 = head->next;
             
-            if(next1)
-            {
+            if (next1) {
                 next2 = next1->next;
                 pre_curr->next = next1;
                 next1->next = head;
@@ -40,8 +38,7 @@ public:
                 pre_curr = head;
                 next1 = next2;
             }
-            else
-            {
+            else {
                 pre_curr->next = head;
             }
             head = next1;
@@ -50,8 +47,6 @@ public:
     }
 };
 // @lc code=end
-
-
 int main()
 {
     ListNode a(1);

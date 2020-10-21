@@ -26,12 +26,8 @@ public:
         ListNode* pre_node = &temp_node;
         ListNode* after_node = &temp_node;
 
-        while(n--)
-        {
-            pre_node = pre_node->next;
-        }
-        while(pre_node->next)
-        {
+        while (n--) pre_node = pre_node->next;
+        while (pre_node->next) {
             after_node = after_node->next;
             pre_node = pre_node->next;
         }

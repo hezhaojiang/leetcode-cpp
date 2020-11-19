@@ -11,11 +11,9 @@ public:
         int start = 0;
         int curOil = 0;
         int needOil = 0;
-        for(int i = 0; i < gas.size(); i++)
-        {
+        for (int i = 0; i < gas.size(); i++) {
             curOil = curOil + gas[i] - cost[i];
-            if(curOil < 0)
-            {
+            if (curOil < 0) {
                 needOil -= curOil;
                 curOil = 0;
                 start = i + 1;

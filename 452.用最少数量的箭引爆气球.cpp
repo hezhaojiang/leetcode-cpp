@@ -8,27 +8,15 @@
 #include <vector>
 using namespace std;
 // @lc code=start
-bool cmp(vector<int>& a, vector<int> b)
-{
-    if(a.front() > b.front())
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
+bool cmp(vector<int>& a, vector<int> b) {
+    return a.front() > b.front() ? false : true;
 }
 class Solution {
 public:
     int findMinArrowShots(vector<vector<int>>& points) {
-        if(0 == points.size())
-        {
-            return 0;
-        }
+        if (0 == points.size()) return 0;
         sort(points.begin(), points.end(), cmp);
-        struct 
-        {
+        struct {
             int begin;
             int end;
             int number;
@@ -38,18 +26,13 @@ public:
         shotfield.end = points[0][1];
         shotfield.number = 1;
 
-        for(auto p : points)
-        {
-            if(p[0] > shotfield.end)
-            {
+        for (auto p : points) {
+            if (p[0] > shotfield.end) {
                 shotfield.number++;
                 shotfield.begin = p[0];
                 shotfield.end = p[1];
             }
-            else if(p[1] < shotfield.end)
-            {
-                shotfield.end = p[1];
-            }
+            else if (p[1] < shotfield.end) shotfield.end = p[1];
         }
         return shotfield.number;
     }

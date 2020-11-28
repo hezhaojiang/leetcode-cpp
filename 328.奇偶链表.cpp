@@ -22,10 +22,7 @@ struct ListNode {
 class Solution {
 public:
     ListNode* oddEvenList(ListNode* head) {
-        if(!head || !head->next)
-        {
-            return head;
-        }
+        if(!head || !head->next) return head;
         int nodetag = 0;
         ListNode* start_Odd = head;
         head = head->next;
@@ -35,17 +32,14 @@ public:
         ListNode* end_Odd = start_Odd;
         ListNode* end_Even = start_Even;
 
-        while(nodetag++, head)
-        {
+        while (nodetag++, head) {
             ListNode* next = head->next;
 
-            if(0 != nodetag % 2)
-            {
+            if (0 != nodetag % 2) {
                 end_Odd->next = head;
                 end_Odd = end_Odd->next;
             }
-            else
-            {
+            else {
                 end_Even->next = head;
                 end_Even = end_Even->next;
             }

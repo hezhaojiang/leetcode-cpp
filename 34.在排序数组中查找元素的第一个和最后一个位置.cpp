@@ -7,57 +7,31 @@
 using namespace std;
 // @lc code=start
 class Solution {
-private:
-    vector<int> result;
 public:
     vector<int> searchRange(vector<int>& nums, int target) 
     {
-
-        if(nums.size() == 0) 
-        {
-            result.push_back(-1); result.push_back(-1); return result;
-        }
-        int start = 0;
-        int end = nums.size() - 1;
-        int mid = (start + end) / 2;
-        while(mid != end)
-        {
-            if(nums[mid] == target) break;
-            if(nums[mid] > target) end = mid;
-            if(nums[mid] < target) start = mid + 1;
-            mid = (start + end) / 2;
-        }
-        if(nums[mid] != target)
-        {
-            result.push_back(-1); result.push_back(-1); return result;
+        vector<int> result{-1, -1};
+        if(nums.size() == 0) return result;
+        int start = 0, mid, end = nums.size() - 1;
+        while (start < end - 1) {
+            mid = start + (end - start) / 2;
+            if (nums[mid] >= target) end = mid;
+            if (nums[mid] < target) start = mid + 1;
         }
 
-        int lstart = start;
-        int lend = mid;
-        int lmid = (lstart + lend) / 2;
-        while(lmid != lend)
-        {
-            if(nums[lmid] == target) lend = lmid;
-            if(nums[lmid] < target) lstart = lmid + 1;
-            lmid = (lstart + lend) / 2;
+        if (nums[start] != target && nums[end] != target) return result;
+        else if (nums[start] == target) result[0] = start;
+        else result[0] = end;
+
+        start = 0, mid, end = nums.size() - 1;
+        while (start < end - 1) {
+            mid = start + (end - start) / 2;
+            if (nums[mid] > target) end = mid - 1;
+            if (nums[mid] <= target) start = mid;
         }
-
-        int rstart = mid;
-        int rend = end;
-        int rmid = (rstart + rend + 1) / 2;
-
-        while(rmid != rstart)
-        {
-            if(nums[rmid] > target) rend = rmid - 1;
-            if(nums[rmid] == target) rstart = rmid;
-            rmid = (rstart + rend + 1) / 2;
-        }
-
-        result.push_back(lmid);
-        result.push_back(rmid);
+        if (nums[end] == target) result[1] = end;
+        else result[1] = start;
         return result;
     }
 };
 // @lc code=end
-
-

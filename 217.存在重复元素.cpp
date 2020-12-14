@@ -10,11 +10,11 @@ using namespace std;
 class Solution {
 public:
     bool containsDuplicate(vector<int>& nums) {
-        if(nums.empty()) return false;
+        if (nums.empty()) return false;
         sort(nums.begin(), nums.end());
         int first = nums[0];
-        for(int i = 1; i < nums.size(); i++)
-            if(first == nums[i]) return true;
+        for (int i = 1; i < nums.size(); i++)
+            if (first == nums[i]) return true;
             else first = nums[i];
         return false;
     }

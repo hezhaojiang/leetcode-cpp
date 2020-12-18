@@ -10,10 +10,10 @@ using namespace std;
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        if(prices.empty()) return 0;
+        if (prices.empty()) return 0;
         vector<int> upStk;
         int maxMoney = 0;
-        for(auto a : prices){
+        for (auto a : prices) {
             while(!upStk.empty() && upStk.back() > a) upStk.pop_back();
             upStk.push_back(a);
             maxMoney = max(maxMoney, upStk.back() - upStk.front());

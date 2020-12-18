@@ -4,20 +4,23 @@
  * [122] 买卖股票的最佳时机 II
  */
 #include<vector>
+#include<algorithm>
 using namespace std;
 // @lc code=start
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        prices.push_back(0);
-        int buy = prices.front();
-        bool inc = false;
-        int profit = 0;
-        for(int i = 1; i < prices.size(); i++) {
-            if(!inc && prices[i-1] < prices[i]) {buy = prices[i-1]; inc = true;}
-            if(inc && prices[i-1] > prices[i]) {profit += prices[i-1] - buy; inc = false;}
+        vector<int> upStk;
+        int earnMoney = 0;
+        for (auto a : prices) {
+            if (!upStk.empty() && upStk.back() > a) {
+                earnMoney += upStk.back() - upStk.front();
+                upStk.clear();
+            }
+            upStk.push_back(a);
         }
-        return profit;
+        earnMoney += upStk.back() - upStk.front();
+        return earnMoney;
     }
 };
 // @lc code=end

@@ -13,22 +13,18 @@ public:
         int max = 0x7FFFFFFF;
         int min = 0x80000000;
         long new_x = 0;
-        while(x)
-        {
+        while (x) {
             new_x = new_x * 10 + x % 10;
             x /= 10;
         }
         cout << new_x << endl;
-        if(new_x > max || new_x < min)
-        {
-            return 0;
-        }
+        if(new_x > max || new_x < min) return 0;
         return new_x;
     }
 };
 // @lc code=end
 
-int main()
+int main(void)
 {
     int ret;
     Solution slove;

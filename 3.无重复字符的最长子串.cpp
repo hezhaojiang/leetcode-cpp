@@ -11,17 +11,11 @@ class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
         char index[128] = {0};
-        int start = 0;
-        int end = 0;
         int maxlen = 0;
-        for(start = 0, end = 0; end < s.length(); end++)
-        {
-            if(index[s[end]]++ == 0) 
-                maxlen = max(maxlen, end - start + 1);
-            else
-            {
-                while (s[start] != s[end])
-                    index[s[start++]]--;
+        for(int start = 0, end = 0; end < s.length(); end++) {
+            if(index[s[end]]++ == 0) maxlen = max(maxlen, end - start + 1);
+            else {
+                while (s[start] != s[end]) index[s[start++]]--;
                 index[s[start++]]--;
             } 
         }

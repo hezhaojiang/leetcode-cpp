@@ -1,5 +1,7 @@
 # Prerequisites
 *.d
+*.pdb
+*.ilk
 
 # Compiled Object files
 *.slo
@@ -32,8 +34,8 @@
 *.app
 
 # Doc
-.xls
-.xlsx
+*.xls
+*.xlsx
 
 # Include
 !*.cpp

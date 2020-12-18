@@ -27,19 +27,14 @@ class Solution {
 private:
     vector<int> item;
     int result;
-    void add_item_to_result()
-    {
+    void add_item_to_result() {
         int num = 0;
-        for(auto a : item)
-        {
-            num = num * 10 + a;
-        }
+        for (auto a : item) num = num * 10 + a;
         result += num;
         return;
     }
 public:
-    void preOrder(TreeNode* root)
-    {
+    void preOrder(TreeNode* root) {
         if(!root) return;
         item.push_back(root->val);
         if(!root->left && !root->right) add_item_to_result();

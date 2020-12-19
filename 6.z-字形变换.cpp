@@ -10,19 +10,15 @@ using namespace std;
 class Solution {
 public:
     string convert(string s, int numRows) {
-        if(s.empty()) return s;
+        if (s.empty()) return s;
         int offset = max(1, 2 * numRows - 2);
         string result;
-        for(int i = 0; i < numRows; i++)
-        {
-            for(int j = 0; ; j++)
-            {
-                if(i + offset * j < s.length()) 
-                    result += s[i + offset * j];
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; ; j++) {
+                if (i + offset * j < s.length()) result += s[i + offset * j];
                 else break;
-                if(i == 0 || i == numRows - 1) continue;
-                if(offset * (j + 1) - i < s.length()) 
-                    result += s[offset * (j + 1) - i];
+                if (i == 0 || i == numRows - 1) continue;
+                if (offset * (j + 1) - i < s.length()) result += s[offset * (j + 1) - i];
                 else break;
             }
         }

@@ -9,20 +9,17 @@ using namespace std;
 // @lc code=start
 class Solution {
 private:
-    bool isaeiou(char c)
-    {
+    bool isaeiou(char c) {
         string str = "aeiouAEIOU";
-        for(auto index : str)
-            if(index == c) return true;
+        for (auto index : str)
+            if (index == c) return true;
         return false;
     }
 public:
     string reverseVowels(string s) {
-        
-        for(int i = 0, j = s.length() - 1; i < j; i++, j--)
-        {
-            while(i < j && !isaeiou(s[i])) i++;
-            while(i < j && !isaeiou(s[j])) j--;
+        for(int i = 0, j = s.length() - 1; i < j; i++, j--) {
+            while (i < j && !isaeiou(s[i])) i++;
+            while (i < j && !isaeiou(s[j])) j--;
             swap(s[i], s[j]);
         }
         return s;

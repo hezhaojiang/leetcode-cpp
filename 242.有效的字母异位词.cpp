@@ -22,7 +22,7 @@ public:
 #ifdef _USE_SORT
         sort(s.begin(), s.end());
         sort(t.begin(), t.end());
-        return s == t ? true : false;
+        return s == t;
 #endif
     }
 };

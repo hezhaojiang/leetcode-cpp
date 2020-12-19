@@ -15,12 +15,12 @@ private:
 public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
         unordered_map<string, vector<string>> mapSvs;
-        for (auto& str : strs){
+        for (auto& str : strs) {
             string s = str;
             sort(s.begin(), s.end());
             mapSvs[s].emplace_back(str);
         }
-        for(auto& ss : mapSvs) result.emplace_back(ss.second);
+        for (auto& ss : mapSvs) result.emplace_back(ss.second);
         return result;
     }
 };

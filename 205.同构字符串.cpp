@@ -14,16 +14,13 @@ public:
         char indexs[128] = { 0 };
         char indext[128] = { 0 };
         map<char, char> mapCc;
-        for(int i = 0; i < s.length(); i++)
-        {
-            if(indexs[s[i]] == 0) 
-            {
-                if(indext[t[i]]) return false;
+        for (int i = 0; i < s.length(); i++) {
+            if (indexs[s[i]] == 0) {
+                if (indext[t[i]]) return false;
                 indexs[s[i]] = t[i];
                 indext[t[i]] = 1;
             }
-            else
-                if(indexs[s[i]] != t[i]) return false;
+            else if (indexs[s[i]] != t[i]) return false;
         }
         return true;
     }

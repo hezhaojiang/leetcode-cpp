@@ -11,13 +11,12 @@ using namespace std;
 class Solution {
 public:
     int lengthOfLastWord(string s) {
-        if(s.length() == 0) return 0;
-        std::regex ws_re("\\s+"); // whitespace
-        std::vector<std::string> v(std::sregex_token_iterator(s.begin(), s.end(), ws_re, -1), 
-            std::sregex_token_iterator());
+        if (s.length() == 0) return 0;
+        regex ws_re("\\s+"); // whitespace
+        vector<std::string> v(sregex_token_iterator(s.begin(), s.end(), ws_re, -1), 
+            sregex_token_iterator());
         int len = 0;
-        for(auto&& s: v)
-            len = s.length();
+        for (auto &s: v) len = s.length();
         return len;
     }
 };

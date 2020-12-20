@@ -3,7 +3,9 @@
  *
  * [53] 最大子序和
  */
-
+#include<vector>
+#include<algorithm>
+using namespace std;
 // @lc code=start
 class Solution {
 public:
@@ -11,10 +13,9 @@ public:
         if(nums.empty()) return 0;
         int maxSubSum = nums[0];
         int maxSubCur = nums[0];
-        for(int i = 1; i < nums.size(); i++)
-        {
+        for (int i = 1; i < nums.size(); i++) {
             maxSubCur = maxSubCur > 0 ? maxSubCur + nums[i] : nums[i];
-            if(maxSubCur > maxSubSum) maxSubSum = maxSubCur;
+            if (maxSubCur > maxSubSum) maxSubSum = maxSubCur;
         }
         return maxSubSum;
     }

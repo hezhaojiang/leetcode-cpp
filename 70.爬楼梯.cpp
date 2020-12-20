@@ -12,8 +12,7 @@ public:
         vector<int> method;
         method.emplace_back(1);
         method.emplace_back(1);
-        for(int i = 2; i <= n; i++)
-        {
+        for (int i = 2; i <= n; i++) {
             method.emplace_back(method[i - 2] + method[i - 1]);
         }
         return method[n];

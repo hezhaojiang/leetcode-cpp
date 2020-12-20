@@ -18,8 +18,8 @@ public:
         }
 
         vector<int> money(1, 0);
-        for(int i = 0; i < counts.size(); i++) {
-            if(i == 0) money.push_back(counts[i] * i);
+        for (int i = 0; i < counts.size(); i++) {
+            if (i == 0) money.push_back(counts[i] * i);
             else money.push_back(max(money[i - 1] + counts[i] * i, money[i]));
         }
         return money.back();

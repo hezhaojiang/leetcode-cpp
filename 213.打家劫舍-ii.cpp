@@ -11,8 +11,8 @@ class Solution {
 private:
     int rob(vector<int>& nums, int start, int end) {
         vector<int> money(1, 0);
-        for(int i = start; i < end; i++) {
-            if(i == start) money.push_back(nums[i]);
+        for (int i = start; i < end; i++) {
+            if (i == start) money.push_back(nums[i]);
             else money.push_back(max(money[i - start - 1] + nums[i], money[i - start]));
         }
         return money.back();

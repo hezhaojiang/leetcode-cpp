@@ -41,7 +41,7 @@ public:
                 item.push_back(curQ->val);
                 Que.pop();
             }
-            if(++line % 2 == 0) reverse(item.begin(), item.end());
+            if (++line % 2 == 0) reverse(item.begin(), item.end());
             result.push_back(item);
             item.clear();
         }

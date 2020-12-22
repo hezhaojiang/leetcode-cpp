@@ -18,6 +18,7 @@ public:
 
         // 找到最大前缀和之差 且不大于 upper
         for (int l = left, r = mid + 1; l <= mid; l++)
+            // 这里是 O(n) 而不是 O(n^2) 因为 r 的值每次不会重头开始
             while (r <= right && sum[r] - sum[l] <= upper) 
                 ret = max(ret, sum[r++] - sum[l]);
 

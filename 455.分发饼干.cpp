@@ -12,20 +12,13 @@ public:
     int findContentChildren(vector<int>& g, vector<int>& s) {
         std::sort(g.begin(), g.end(), std::greater<int>());
         std::sort(s.begin(), s.end(), std::greater<int>());
-
-        vector<int>::iterator iter_g = g.begin();
-        vector<int>::iterator iter_s = s.begin();
-
         int satisfy = 0;
 
-        while(iter_g != g.end() && iter_s != s.end())
-        {
-            if(*iter_g <= *iter_s)
-            {
+        for (auto iter_g = g.begin(), iter_s = s.begin(); iter_g != g.end() && iter_s != s.end(); iter_g++) {
+            if (*iter_g <= *iter_s) {
                 iter_s++;
                 satisfy++;
             }
-            iter_g++;
         }
         return satisfy;
     }

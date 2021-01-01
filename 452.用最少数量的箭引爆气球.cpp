@@ -8,14 +8,12 @@
 #include <vector>
 using namespace std;
 // @lc code=start
-bool cmp(vector<int>& a, vector<int> b) {
-    return a.front() > b.front() ? false : true;
-}
 class Solution {
 public:
     int findMinArrowShots(vector<vector<int>>& points) {
         if (0 == points.size()) return 0;
-        sort(points.begin(), points.end(), cmp);
+#if 0
+        sort(points.begin(), points.end(), [](const auto &u, const auto &v) { return u[0] <= v[0]; });
         struct {
             int begin;
             int end;
@@ -35,6 +33,16 @@ public:
             else if (p[1] < shotfield.end) shotfield.end = p[1];
         }
         return shotfield.number;
+#endif
+        sort(points.begin(), points.end(), [](const auto &u, const auto &v) { return u[1] <= v[1]; });
+
+        int right = points[0][1], shot = 1;
+
+        for (auto p : points) if (p[0] > right) {
+            shot++;
+            right = p[1];
+        }
+        return shot;
     }
 };
 // @lc code=end

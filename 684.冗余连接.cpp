@@ -17,18 +17,6 @@ public:
             rank[i] = 0;
         }
     }
-    void MakeSet(int x) {
-        if (x < parent.size()) parent[x] = x;
-        else {
-            int osize = parent.size();
-            parent.resize(x + 1);
-            rank.resize(x + 1);
-            for (int i = osize; i <= x; i++) {
-                parent[i] = i;
-                rank[i] = 0;
-            }
-        }
-    }
     int Find(int x) {
         if (parent[x] != x) parent[x] = Find(parent[x]);
         return parent[x];

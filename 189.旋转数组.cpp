@@ -3,7 +3,8 @@
  *
  * [189] 旋转数组
  */
-
+#include<vector>
+using namespace std;
 // @lc code=start
 class Solution {
 public:
@@ -11,12 +12,10 @@ public:
         int len = nums.size();
         k = k % len;
         int count = 0;
-        for(int start = 0; count < len; start++)
-        {
+        for (int start = 0; count < len; start++) {
             int cur = start;
             int pre = nums[start];
-            do
-            {
+            do {
                 int target = (cur + k) % len;
                 int temp = nums[target];
                 nums[target] = pre;

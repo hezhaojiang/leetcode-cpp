@@ -33,7 +33,7 @@ public:
         }
 
         maxMoney = 0;
-        for (int i = 0; i< N; i++) maxMoney = max(maxMoney, dp1[i] + dp2[i]);
+        for (int i = 0; i < N; i++) maxMoney = max(maxMoney, dp1[i] + dp2[i]);
         return maxMoney;
     }
 };

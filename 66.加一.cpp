@@ -9,9 +9,10 @@ using namespace std;
 class Solution {
 public:
     vector<int> plusOne(vector<int>& digits) {
-        digits[digits.size() - 1]++;
-        for (int i = digits.size() - 1; i >= 0; i--) {
-            if (digits[i] == 10) { 
+        int N = digits.size();
+        digits[N - 1]++;
+        for (int i = N - 1; i >= 0; i--) {
+            if (digits[i] > 9) { 
                 digits[i] = 0;
                 if (i != 0) digits[i - 1]++;
                 else digits.insert(digits.begin(), 1);

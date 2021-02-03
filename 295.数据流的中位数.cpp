@@ -3,80 +3,34 @@
  *
  * [295] 数据流的中位数
  */
-
+#include<vector>
+#include<queue>
+#include<algorithm>
+using namespace std;
 // @lc code=start
 class MedianFinder {
 private:
-    std::priority_queue<int, std::vector<int>, std::greater<int>> small_heap;
-    std::priority_queue<int, std::vector<int>, std::less<int>> big_heap;
+    priority_queue<int, vector<int>, greater<int>> small_heap;  // 升序队列 小根堆 保存大一些的数字
+    priority_queue<int, vector<int>, less<int>> big_heap;       // 降序队列 大根堆 保存小一些的数字
 public:
     /** initialize your data structure here. */
-    MedianFinder() {
-    }
+    MedianFinder() {}
     
     void addNum(int num) {
-        if(small_heap.size() == big_heap.size())
-        {
-            if(0 == small_heap.size() || num > small_heap.top())
-            {
-                small_heap.push(num);
-            }
-            else
-            {
-                big_heap.push(num);
-            }
+        small_heap.push(num);
+        big_heap.push(small_heap.top());
+        small_heap.pop();
+        if (small_heap.size() + 1 < big_heap.size()) {
+            small_heap.push(big_heap.top());
+            big_heap.pop();
         }
-        else if(small_heap.size() > big_heap.size())
-        {
-            if(num > small_heap.top())
-            {
-                big_heap.push(small_heap.top());
-                small_heap.pop();
-                small_heap.push(num);
-            }
-            else
-            {
-                big_heap.push(num);
-            }
-            
-        }
-        else if(small_heap.size() < big_heap.size())
-        {
-            if(num < big_heap.top())
-            {
-                small_heap.push(big_heap.top());
-                big_heap.pop();
-                big_heap.push(num);
-            }
-            else
-            {
-                small_heap.push(num);
-            }
-        }
-        return;
     }
     
     double findMedian() {
-        if(small_heap.size() == big_heap.size())
-        {
-            if(0 == small_heap.size())
-            {
-                return 0;
-            }
-            else
-            {
-                return (small_heap.top() + big_heap.top())/2.0;
-            }
-        }
-        else if(small_heap.size() > big_heap.size())
-        {
-            return small_heap.top();
-        }
-        else if(small_heap.size() < big_heap.size())
-        {
-            return big_heap.top();
-        }
-        return 0;
+        if (big_heap.empty()) return 0;
+        if (small_heap.size() == big_heap.size()) {
+            return (small_heap.top() + big_heap.top()) / 2.0;
+        } else return big_heap.top();
     }
 };
 
@@ -88,3 +42,10 @@ public:
  */
 // @lc code=end
 
+int main()
+{
+    MedianFinder mf;
+    mf.addNum(1);
+    mf.findMedian();
+    return 0;
+}

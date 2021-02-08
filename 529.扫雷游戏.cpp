@@ -9,24 +9,24 @@ using namespace std;
 class Solution {
 private:
     void dfs(vector<vector<char>>& board, int row, int col) {
-        int BOOOOOOOOOOOOOOMNum = 0;
+        int sweeper = 0;
         int x[8] = {1, 1, 0, -1, -1, -1,  0,  1};
         int y[8] = {0, 1, 1,  1,  0, -1, -1, -1};
         if (board[row][col] == 'E') {
-            for(int i = 0; i < 8; i++) {
+            for (int i = 0; i < 8; i++) {
                 if (row + x[i] >= 0 && row + x[i] < board.size()
                     && col + y[i] >= 0 && col + y[i] < board[0].size()
                     && board[row + x[i]][col + y[i]] == 'M')
-                    BOOOOOOOOOOOOOOMNum++;
+                    sweeper++;
             }
         }
-        if (BOOOOOOOOOOOOOOMNum == 0) board[row][col] = 'B';
+        if (sweeper == 0) board[row][col] = 'B';
         else { 
-            board[row][col] = '0' + BOOOOOOOOOOOOOOMNum;
+            board[row][col] = '0' + sweeper;
             return;
         }
 
-        for(int i = 0; i < 8; i++) {
+        for (int i = 0; i < 8; i++) {
             if (row + x[i] >= 0 && row + x[i] < board.size()
                 && col + y[i] >= 0 && col + y[i] < board[0].size()
                 && board[row + x[i]][col + y[i]] == 'E')

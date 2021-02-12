@@ -4,25 +4,36 @@
  * [733] 图像渲染
  */
 #include<vector>
+#include<deque>
 using namespace std;
 // @lc code=start
 class Solution {
 private:
-#define MAX_COLOR 65535
-    int color;
-    void dfs(vector<vector<int>>& image, int sr, int sc, int newColor) {
-        if (image[sr][sc] == color) image[sr][sc] += MAX_COLOR;
-        if (sr > 0 && image[sr - 1][sc] == color) dfs(image, sr - 1, sc, newColor);
-        if (sr < image.size() - 1 && image[sr + 1][sc] == color) dfs(image, sr + 1, sc, newColor);
-        if (sc > 0 && image[sr][sc - 1] == color) dfs(image, sr, sc - 1, newColor);
-        if (sc < image[0].size() - 1 && image[sr][sc + 1] == color) dfs(image, sr, sc + 1, newColor);
-        image[sr][sc] = newColor;
-        return;
+    int M, N;
+    const vector<vector<int>> dis{{1,0},{-1,0},{0,1},{0,-1}};
+    bool isvalid(int i, int j) {
+        return i >= 0 && j >= 0 && i < M && j < N;
     }
 public:
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
-        color = image[sr][sc];
-        dfs(image, sr, sc, newColor);
+        int preColor = image[sr][sc];
+        if (preColor == newColor) return image;
+        M = image.size();
+        N = image[0].size();
+        deque<pair<int, int>> q;
+        q.emplace_back(sr, sc);
+        image[sr][sc] = newColor;
+        while (!q.empty()) {
+            int i = q.front().first, j = q.front().second;
+            q.pop_front();
+            for (auto & d : dis) {
+                int x = i + d[0], y = j + d[1];
+                if (isvalid(x, y) && image[x][y] == preColor) {
+                    q.emplace_back(x, y);
+                    image[x][y] = newColor;
+                }
+            }
+        }
         return image;
     }
 };

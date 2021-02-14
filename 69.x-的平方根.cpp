@@ -9,15 +9,14 @@ using namespace std;
 class Solution {
 public:
     int mySqrt(int x) {
-        int start = 0, end = x, mid;
-        while (start + 1 < end) {
-            mid = start + (end - start) / 2;
+        int l = 0, r = x;
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
             if (1LL * mid * mid == x) return mid;
-            else if (1LL * mid * mid > x) end = mid;
-            else if (1LL * mid * mid < x) start = mid;
+            else if (1LL * mid * mid > x) r = mid - 1;
+            else if (1LL * mid * mid < x) l = mid + 1;
         }
-        if (1LL * end * end <= x) return end;
-        else return start;
+        return r;
     }
 };
 // @lc code=end

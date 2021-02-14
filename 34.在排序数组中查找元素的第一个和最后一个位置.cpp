@@ -11,26 +11,27 @@ public:
     vector<int> searchRange(vector<int>& nums, int target) 
     {
         vector<int> result{-1, -1};
-        if(nums.size() == 0) return result;
-        int start = 0, mid, end = nums.size() - 1;
-        while (start < end - 1) {
-            mid = start + (end - start) / 2;
-            if (nums[mid] >= target) end = mid;
-            if (nums[mid] < target) start = mid + 1;
+        if (nums.empty()) return result;
+        int N = nums.size();
+
+        /* 第一个位置 */
+        int l = 0, r = N - 1;
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
+            if (nums[mid] < target) l = mid + 1;
+            else r = mid - 1;
         }
 
-        if (nums[start] != target && nums[end] != target) return result;
-        else if (nums[start] == target) result[0] = start;
-        else result[0] = end;
+        if (l == N || nums[l] != target) return result;
+        else result[0] = l;
 
-        start = 0, mid, end = nums.size() - 1;
-        while (start < end - 1) {
-            mid = start + (end - start) / 2;
-            if (nums[mid] > target) end = mid - 1;
-            if (nums[mid] <= target) start = mid;
+        l = 0, r = N - 1;
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
+            if (nums[mid] > target) r = mid - 1;
+            else l = mid + 1;
         }
-        if (nums[end] == target) result[1] = end;
-        else result[1] = start;
+        result[1] = r;
         return result;
     }
 };

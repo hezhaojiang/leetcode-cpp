@@ -3,7 +3,8 @@
  *
  * [289] 生命游戏
  */
-
+#include<vector>
+using namespace std;
 // @lc code=start
 class Solution {
 public:

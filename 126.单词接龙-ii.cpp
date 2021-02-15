@@ -51,7 +51,7 @@ public:
         cost[word2index[beginWord]] = 0;
 
         while (!Q.empty() && bcontinue) {
-            unordered_map<int, int> curvisit;
+            vector<int> curvisit;
             int currSize = Q.size();
             for (int i = 0; i < currSize; i++) {
                 vector<int> now = Q.front();
@@ -68,12 +68,12 @@ public:
                             vector<int> copy(now);
                             copy.push_back(graph[index][j]);
                             Q.push(copy);
-                            curvisit[graph[index][j]] = 1;
+                            curvisit.push_back(graph[index][j]);
                         }
                     }
                 }
             }
-            for (auto & v : curvisit) visited[v.first] = 1;
+            for (auto & v : curvisit) visited[v] = 1;
         }
         return res;
     }

@@ -6,7 +6,7 @@
 struct ListNode {
     int val;
     ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
+    ListNode(int x) : val(x), next(nullptr) {}
 };
 // @lc code=start
 /**
@@ -21,14 +21,15 @@ class Solution {
 public:
     ListNode* insertionSortList(ListNode* head) {
         if (head == nullptr) return head;
-        ListNode* dummyHead = new ListNode(0);
-        dummyHead->next = head;
+        ListNode dummyNode(0);
+        ListNode* dummy = &dummyNode;
+        dummy->next = head;
         ListNode* lastSorted = head;
         ListNode* curr = head->next;
         while (curr != nullptr) {
             if (lastSorted->val <= curr->val) lastSorted = lastSorted->next;
             else {
-                ListNode *prev = dummyHead;
+                ListNode *prev = dummy;
                 while (prev->next->val <= curr->val) prev = prev->next;
                 lastSorted->next = curr->next;
                 curr->next = prev->next;
@@ -36,7 +37,7 @@ public:
             }
             curr = lastSorted->next;
         }
-        return dummyHead->next;
+        return dummy->next;
     }
 };
 // @lc code=end

@@ -22,6 +22,7 @@ struct ListNode {
 class Solution {
 public:
     ListNode* partition(ListNode* head, int x) {
+        ListNode* res = nullptr;
         ListNode* small = new ListNode(0);
         ListNode* smallHead = small;
         ListNode* large = new ListNode(0);
@@ -38,7 +39,10 @@ public:
         }
         large->next = nullptr;
         small->next = largeHead->next;
-        return smallHead->next;
+        res = smallHead->next;
+        delete smallHead;
+        delete largeHead;
+        return res;
     }
 };
 // @lc code=end

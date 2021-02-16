@@ -9,7 +9,7 @@ using namespace std;
 struct ListNode {
     int val;
     ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
+    ListNode(int x) : val(x), next(nullptr) {}
 };
 struct TreeNode {
     int val;
@@ -38,22 +38,20 @@ struct TreeNode {
 class Solution {
 private:
     vector<int> nums;
-    TreeNode* halfDevide(int start, int end)
-    {
+    TreeNode* halfDevide(int start, int end) {
         int mid = start + (end - start) / 2;
         TreeNode* root = new TreeNode(nums[mid]);
-        if(start != mid) root->left = halfDevide(start, mid - 1);
-        if(mid != end) root->right = halfDevide(mid + 1, end);
+        if (start != mid) root->left = halfDevide(start, mid - 1);
+        if (mid != end) root->right = halfDevide(mid + 1, end);
         return root;
     }
 public:
     TreeNode* sortedListToBST(ListNode* head) {
-        while(head)
-        {
+        while(head) {
             nums.push_back(head->val);
             head = head->next;
         }
-        if(nums.size() == 0) return nullptr;
+        if (nums.empty()) return nullptr;
         return halfDevide(0, nums.size() - 1);
     }
 };

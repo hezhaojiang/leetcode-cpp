@@ -1,11 +1,11 @@
 /*
- * @lc app=leetcode.cn id=141 lang=cpp
+ * @lc app=leetcode.cn id=876 lang=cpp
  *
- * [141] 环形链表
+ * [876] 链表的中间结点
  */
 struct ListNode {
     int val;
-    ListNode *next;
+    ListNode* next;
     ListNode(int x) : val(x), next(nullptr) {}
 };
 // @lc code=start
@@ -19,18 +19,15 @@ struct ListNode {
  */
 class Solution {
 public:
-    bool hasCycle(ListNode *head) {
-        ListNode* slow = head;
-        ListNode* fast = head;
-
+    ListNode* middleNode(ListNode* head) {
+        ListNode* fast = head, *slow = head;
         while (fast) {
+            fast = fast->next;
+            if (fast) fast = fast->next;
+            else break;
             slow = slow->next;
-            fast = fast->next;
-            if (!fast) break;
-            fast = fast->next;
-            if (slow == fast) return true;
         }
-        return false;
+        return slow;
     }
 };
 // @lc code=end

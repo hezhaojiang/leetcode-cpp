@@ -3,9 +3,11 @@
  *
  * [24] 两两交换链表中的节点
  */
+#include <iostream>
+using namespace std;
 struct ListNode {
     int val;
-    ListNode *next;
+    ListNode* next;
     ListNode(int x) : val(x), next(nullptr) {}
 };
 
@@ -29,7 +31,6 @@ public:
         ListNode* next2 = nullptr;
         while (head) {
             next1 = head->next;
-            
             if (next1) {
                 next2 = next1->next;
                 pre_curr->next = next1;
@@ -37,18 +38,15 @@ public:
                 head->next = nullptr;
                 pre_curr = head;
                 next1 = next2;
-            }
-            else {
-                pre_curr->next = head;
-            }
+            } else pre_curr->next = head;
             head = next1;
         }
         return pre_head.next;
     }
 };
 // @lc code=end
-int main()
-{
+
+int main() {
     ListNode a(1);
     ListNode b(2);
     ListNode c(3);
@@ -58,11 +56,9 @@ int main()
     c.next = &d;
     Solution solve;
     ListNode* head = solve.swapPairs(&a);
-    while(head)
-    {
-        printf("val = %d\n", head->val);
+    while (head) {
+        cout << "val = " << head->val << endl;
         head = head->next;
     }
     return 0;
 }
-

@@ -3,7 +3,14 @@
  *
  * [206] 反转链表
  */
+#include <iostream>
+using namespace std;
 
+struct ListNode {
+  int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
 // @lc code=start
 /**
  * Definition for singly-linked list.
@@ -15,18 +22,9 @@
  */
 class Solution {
 public:
-    ListNode* reverseList(ListNode* head) 
-    {
+    ListNode* reverseList(ListNode* head) {
         ListNode* new_head = nullptr;
-        while(head)
-        {
-            #ifdef hezhaojiang
-            ListNode* temp = new_head;
-            new_head = head;
-            head = head->next;
-            new_head->next = temp;
-            #endif
-
+        while (head) {
             ListNode* next = head->next;
             head->next = new_head;
             new_head = head;

@@ -3,7 +3,14 @@
  *
  * [92] 反转链表 II
  */
+#include <iostream>
+using namespace std;
 
+struct ListNode {
+  int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
 // @lc code=start
 /**
  * Definition for singly-linked list.
@@ -15,42 +22,25 @@
  */
 class Solution {
 public:
-    ListNode* reverseBetween(ListNode* head, int m, int n) 
-    {
-        int change_len = n - m + 1;
-        ListNode* pre_head = nullptr;
-        ListNode* result = head;
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        ListNode preNode(0);
+        ListNode* pre = &preNode;
+        preNode.next = head;
 
-        while(head && --m)
-        {
-            pre_head = head;
-            head = head->next;
+        int count = n - m; // 调节节点顺序的次数
+        while (--m) pre = pre->next; // 找到 m 节点之前的节点
+        ListNode* cur = pre->next;   // 找到 m 节点
+
+        // 将 cur->next 指向的节点放到 pre 之后
+        while (count--) {
+            ListNode* node = cur->next;
+            // 删除 node
+            cur->next = node->next;
+            // 将 node 插入到 pre 后
+            node->next = pre->next;
+            pre->next = node;
         }
-
-        ListNode* modify_list_tail = head;
-        ListNode* new_head = nullptr;
-
-        while(head && change_len)
-        {
-            ListNode* next = head->next;
-            head->next = new_head;
-            new_head = head;
-            head = next;
-            change_len--;
-        }
-
-        modify_list_tail->next = head;
-
-        if(pre_head)
-        {
-            pre_head->next = new_head;
-        }
-        else
-        {
-            result = new_head;
-        }
-        
-        return result;
+        return preNode.next;
     }
 };
 // @lc code=end

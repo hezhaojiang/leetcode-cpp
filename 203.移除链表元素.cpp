@@ -6,7 +6,7 @@
 struct ListNode {
     int val;
     ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
+    ListNode(int x) : val(x), next(nullptr) {}
 };
 // @lc code=start
 /**
@@ -23,16 +23,9 @@ public:
         ListNode pre_head(0);
         pre_head.next = head;
         ListNode* nodeCur = &pre_head;
-        while(nodeCur->next)
-        {
-            if(val == nodeCur->next->val)
-            {
-                nodeCur->next = nodeCur->next->next;
-            }
-            else
-            {
-                nodeCur = nodeCur->next;
-            }
+        while (nodeCur->next) {
+            if (val == nodeCur->next->val) nodeCur->next = nodeCur->next->next;
+            else nodeCur = nodeCur->next;
         }
         return pre_head.next;
     }

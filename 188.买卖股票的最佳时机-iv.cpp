@@ -10,10 +10,7 @@ using namespace std;
 class Solution {
 public:
     int maxProfit(int k, vector<int>& prices) {
-        if (prices.empty()) {
-            return 0;
-        }
-
+        if (prices.empty()) return 0;
         int n = prices.size();
         k = min(k, n / 2);
         vector<vector<int>> buy(n, vector<int>(k + 1));

@@ -3,40 +3,13 @@
  *
  * [1584] 连接所有点的最小费用
  */
-#include<vector>
-#include<string>
-#include<algorithm>
-#include<unordered_map>
+#include <algorithm>
+#include <numeric>
+#include <string>
+#include <unordered_map>
+#include <vector>
 using namespace std;
 // @lc code=start
-class UnionFind {
-private:
-    vector<int> parent;
-    int count;
-public:
-    UnionFind(int n) {
-        count = n;
-        parent.resize(n);
-        for (int i = 0; i < n; i++) parent[i] = i;
-    }
-    int Find(int n) {
-        return n == parent[n] ? n : parent[n] = Find(parent[n]);
-    }
-    void Union(int a, int b) {
-        int rootA = Find(a), rootB = Find(b);
-        if (rootA != rootB) {
-            count--;
-            parent[rootA] = rootB;
-        }
-    }
-    int Count() { return count; }
-};
-
-struct Edge {
-    int len, x, y;
-    Edge(int len, int x, int y) : len(len), x(x), y(y) {};
-};
-
 class Solution {
 public:
     int minCostConnectPoints(vector<vector<int>>& points) {
@@ -44,29 +17,32 @@ public:
             return abs(points[i][0] - points[j][0]) + abs(points[i][1] - points[j][1]);
         };
         int N = points.size();
-        UnionFind uf(N);
-        vector<Edge> edges;
-        for (int i = 0; i < N; i++) for (int j = i + 1; j < N; j++) {
-            edges.emplace_back(caldist(i, j), i, j);
+        vector<vector<int>> edges(N, vector<int>(N, 0));
+        for (int i = 0; i < N; i++)
+            for (int j = i + 1; j < N; j++) {
+                edges[i][j] = edges[j][i] = caldist(i, j);
+            }
+        vector<int> distance(N, INT_MAX), visited(N, 0);
+        distance[0] = 0;
+        for (int i = 0; i < N; i++) {
+            int next = -1;
+            for (int j = 0; j < N; j++) {
+                if (!visited[j] && (next == -1 || distance[j] < distance[next])) next = j;
+            }
+            visited[next] = true;
+            for (int k = 0; k < N; k++) {
+                if (!visited[k]) distance[k] = min(distance[k], edges[next][k]);
+            }
         }
-        int cost = 0;
-        sort(edges.begin(), edges.end(), [](Edge &a, Edge &b) { return a.len < b.len; });
-        for (auto & edge : edges) {
-            if (uf.Find(edge.x) == uf.Find(edge.y)) continue;
-            uf.Union(edge.x, edge.y);
-            cost += edge.len;
-            if (uf.Count() == 1) return cost;
-        }
-        return 0;
+        return accumulate(distance.begin(), distance.end(), 0);
     }
 };
 // @lc code=end
 
 /* Test Main */
-int main(void)
-{
+int main(void) {
     Solution solve;
-    vector<vector<int>> points{{0,0},{2,2},{3,10},{5,2},{7,0}};
+    vector<vector<int>> points{{0, 0}, {2, 2}, {3, 10}, {5, 2}, {7, 0}};
     solve.minCostConnectPoints(points);
     return 0;
 }

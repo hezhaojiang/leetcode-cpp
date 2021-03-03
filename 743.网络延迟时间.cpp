@@ -18,7 +18,37 @@ struct Target {
 class Solution {
 public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
-#define USE_DIJKSTRA
+#define BELLMAN_FORD
+
+#ifdef BELLMAN_FORD
+        vector<vector<int>> edges(n + 1);
+        for (int i = 0; i < times.size(); i++) {
+            edges[times[i][0]].push_back(i);
+        }
+        vector<int> distance(n + 1, INT_MAX / 2);
+        distance[k] = 0;
+        queue<int> q;
+        vector<bool> in_queue(n, false);
+        q.push(k);
+        in_queue[k] = true;
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+            in_queue[u] = false;
+            for (auto& index : edges[u]) {
+                int v = times[index][1], w = times[index][2];
+                if (distance[v] > distance[u] + w) {
+                    distance[v] = distance[u] + w;
+                    if (!in_queue[v]) {
+                        q.push(v);
+                        in_queue[v] = true;
+                    }
+                }
+            }
+        }
+        int res = *max_element(distance.begin() + 1, distance.end());
+        return res == INT_MAX / 2 ? -1 : res;
+#endif
 
 #ifdef USE_DIJKSTRA
         vector<vector<int>> edges(n + 1);

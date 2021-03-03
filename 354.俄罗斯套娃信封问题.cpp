@@ -10,20 +10,16 @@ using namespace std;
 class Solution {
 public:
     int maxEnvelopes(vector<vector<int>>& envelopes) {
-        if (envelopes.empty()) return 0;
-        sort(envelopes.begin(), envelopes.end(), 
-            [&](auto& a, auto& b) { return a[0] < b[0] || (a[0] == b[0] && a[1] < b[1]); });
-        int N = envelopes.size();
-        int maxEnvelope = 1;
-        vector<int> dp(N, 1);
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < i; j++) {
-                if (envelopes[i][0] > envelopes[j][0] && envelopes[i][1] > envelopes[j][1]) 
-                    dp[i] = max(dp[i], dp[j] + 1);
-            }
-            maxEnvelope = max(maxEnvelope, dp[i]);
+        sort(envelopes.begin(), envelopes.end(), // 宽度从小到大 高度从大到小
+            [](auto& a, auto& b) { return a[0] < b[0] || (a[0] == b[0] && a[1] > b[1]); });
+        // 以下为 LIS 最长上升子序列问题
+        vector<int> dp;
+        for(const auto& e: envelopes) {
+            auto p = lower_bound(dp.begin(), dp.end(), e[1]);
+            if(p == dp.end()) dp.push_back(e[1]);
+            else *p = e[1];
         }
-        return maxEnvelope;
+        return dp.size();
     }
 };
 // @lc code=end

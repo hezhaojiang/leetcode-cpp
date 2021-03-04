@@ -3,53 +3,47 @@
  *
  * [232] 用栈实现队列
  */
-#include<stack>
+#include <stack>
 using namespace std;
 // @lc code=start
 class MyQueue {
 private:
     std::stack<int> in;
     std::stack<int> out;
+
 public:
     /** Initialize your data structure here. */
-    MyQueue() {
-    }
-    
+    MyQueue() {}
+
     /** Push element x to the back of queue. */
-    void push(int x) {
-        in.push(x);
-        return;
-    }
-    
+    void push(int x) { in.push(x); }
+
     /** Removes the element from in front of queue and returns that element. */
     int pop() {
-        if(out.empty())
-            while(!in.empty())
-            {
+        if (out.empty()) {
+            while (!in.empty()) {
                 out.push(in.top());
                 in.pop();
             }
-                
+        }
         int ret = out.top();
         out.pop();
         return ret;
     }
-    
+
     /** Get the front element. */
     int peek() {
-        if(out.empty())
-            while(!in.empty())
-            {
+        if (out.empty()) {
+            while (!in.empty()) {
                 out.push(in.top());
                 in.pop();
             }
+        }
         return out.top();
     }
-    
+
     /** Returns whether the queue is empty. */
-    bool empty() {
-        return (in.empty() && out.empty());
-    }
+    bool empty() { return (in.empty() && out.empty()); }
 };
 
 /**
@@ -61,4 +55,3 @@ public:
  * bool param_4 = obj->empty();
  */
 // @lc code=end
-

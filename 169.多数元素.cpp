@@ -3,7 +3,8 @@
  *
  * [169] 多数元素
  */
-
+#include <vector>
+using namespace std;
 // @lc code=start
 class Solution {
 public:

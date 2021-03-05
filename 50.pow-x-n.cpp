@@ -8,19 +8,10 @@
 class Solution {
 public:
     double myPow(double x, int n) {
-        double ans = 1;
-        long long N = n;
-        bool flag = false;
-        if (N < 0) {
-            flag = true;
-            N = -N;
-        }
-        for (; N != 0; N >>= 1) {
-            if (N & 1) ans *= x;
-            x = x * x;
-        }
-        return flag ? 1.0 / ans : ans;
+        if (n < 0) return 1.0 / (x * myPow(x, -(n + 1)));
+        if (n == 0) return 1;
+        double ans = myPow(x, n >> 1);;
+        return ans * ans * ((n & 1) ? x : 1);
     }
 };
 // @lc code=end
-

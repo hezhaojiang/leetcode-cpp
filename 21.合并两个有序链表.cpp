@@ -19,28 +19,16 @@ struct ListNode {
  */
 class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        if (!l1) return l2;
-        ListNode* start = l1;
-        while (l2) {
-            ListNode* next2 = l2->next;
-            while (l1) {
-                if (l1->val > l2->val) {
-                    l2->next = l1;
-                    l1 = l2;
-                    start = l2;
-                    break;
-                }
-                if (nullptr == l1->next || l1->next->val > l2->val) {
-                    l2->next = l1->next;
-                    l1->next = l2;
-                    break;
-                }
-                l1 = l1->next;
-            }
-            l2 = next2;
+    ListNode* mergeTwoLists(ListNode* a, ListNode* b) {
+        ListNode Guard(0);
+        ListNode* ptr = &Guard;
+        while (a && b) {
+            if (a->val < b->val) ptr->next = a, a = a->next;
+            else ptr->next = b, b = b->next;
+            ptr = ptr->next;
         }
-        return start;
+        ptr->next = a ? a : b;
+        return Guard.next;
     }
 };
 // @lc code=end

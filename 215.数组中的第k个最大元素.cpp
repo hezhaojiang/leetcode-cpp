@@ -3,29 +3,24 @@
  *
  * [215] 数组中的第K个最大元素
  */
-
+#include <algorithm>
+#include <queue>
+#include <vector>
+using namespace std;
 // @lc code=start
-#include<vector>
-#include<queue>
-
 class Solution {
 public:
     int findKthLargest(vector<int>& nums, int k) {
-        std::priority_queue<int, std::vector<int>, std::greater<int> > small_heap;
-        for(int i = 0; i < nums.size(); i++)
-        {
-            if(small_heap.size() < k)
-            {
-                small_heap.push(nums[i]);
-            }
-            else if(nums[i] >= small_heap.top())
-            {
-                small_heap.pop();
-                small_heap.push(nums[i]);
-            }
+#if 0
+        sort(nums.begin(), nums.end());
+        return nums[nums.size() - k];
+#endif
+        std::priority_queue<int, std::vector<int>, std::greater<int> > small;
+        for (int i = 0; i < nums.size(); i++) {
+            if (small.size() < k) small.push(nums[i]);
+            else if (nums[i] > small.top()) small.pop(), small.push(nums[i]);
         }
-        return small_heap.top();
+        return small.top();
     }
 };
 // @lc code=end
-

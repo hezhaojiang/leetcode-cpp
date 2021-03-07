@@ -11,6 +11,7 @@ using namespace std;
  * 对于图 G，若存在一条途径使得结点 u 走到到结点 v，则称 u 和 v 是 连通的
  * 强连通的定义是：有向图 G 强连通是指，G 中任意两个结点连通。
  * 强连通分量（Strongly Connected Components，SCC）的定义是：极大的强连通子图
+ * https://www.cnblogs.com/nullzx/p/7968110.html
  */
 // @lc code=start
 class Solution {

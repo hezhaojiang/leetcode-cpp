@@ -62,6 +62,7 @@
         "stack": "cpp",
         "unordered_set": "cpp",
         "numeric": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "string_view": "cpp"
     }
 }

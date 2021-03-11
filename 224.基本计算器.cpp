@@ -3,36 +3,38 @@
  *
  * [224] 基本计算器
  */
-#include<string>
-#include<stack>
+#include <algorithm>
+#include <numeric>
+#include <string>
+#include <vector>
 using namespace std;
 // @lc code=start
-#define STATE_BEGIN 0
-#define STATE_NUMBER 1
-#define STATE_SYMBOL 2
-
 class Solution {
+private:
+    int index = 0;
+
 public:
     int calculate(string s) {
-        stack<int> sign;
-        sign.push(1);
-        int ans = 0, num = 0, op = 1;
-        for (char c : s) {
-            if (c == ' ') continue;
-            if ('0' <= c && c <= '9') {
-                num = num * 10 + (c - '0');
-                continue;
+        int n = s.length();
+        char operate = '+';
+        int num = 0;
+        vector<int> stk;
+        while (index < n) {
+            char ch = s[index++];
+            if (ch >= '0') num = num * 10 - '0' +  ch;
+            if (ch == '(') num = calculate(s);
+            if (ch < '0' || index == n) {
+                if (index != n && ch == ' ') continue;
+                if (operate == '+') stk.push_back(num);
+                else if (operate == '-') stk.push_back(-num);
+                //else if (operate == '*') stk.back() *= num;
+                //else if (operate == '/') stk.back() /= num;
+                operate = ch;
+                num = 0;
             }
-            ans += op * num;
-            num = 0;
-            if (c == '+') op = sign.top();
-            else if (c == '-') op = -sign.top();
-            else if (c == '(') sign.push(op);
-            else if (c == ')') sign.pop();
+            if (ch == ')') break;
         }
-        ans += op * num;
-        return ans;
+        return accumulate(stk.begin(), stk.end(), 0);
     }
 };
 // @lc code=end
-

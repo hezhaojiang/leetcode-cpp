@@ -7,6 +7,8 @@
             "args": [
                 "/Zi",
                 "/EHsc",
+                // "/Wall",
+                "/std:c++17",
                 "/Fe:",
                 "${fileDirname}\\DEBUG\\${fileBasenameNoExtension}.exe",
                 "${file}"

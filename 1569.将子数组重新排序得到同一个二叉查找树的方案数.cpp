@@ -8,33 +8,31 @@ using namespace std;
 // @lc code=start
 class Solution {
 private:
-    int MOD = 1000000007;
-    vector<vector<int>> C;
+    const int mod = 1000000007;
+    vector<vector<int>> nCK;
     long long int dfs(vector<int>& nums) {
-        vector<int> a;
-        vector<int> b;
-        if (nums.size() <= 2) return 1;
+        vector<int> a, b;
+        int n = nums.size();
+        if (n <= 2) return 1;
 
-        int first = nums[0];
         for (int i = 1; i < nums.size(); i++) {
-            if (nums[i] < first) a.push_back(nums[i]);
-            else if (nums[i] > first) b.push_back(nums[i]);
+            if (nums[i] < nums[0]) a.push_back(nums[i]);
+            else if (nums[i] > nums[0]) b.push_back(nums[i]);
         }
         
-        long long int t = C[a.size() + b.size()][a.size()];
-        long long al = dfs(a);
-        long long bl = dfs(b);
-        return (((t * al) % MOD) * bl) % MOD;
+        long long comb = nCK[n - 1][a.size()];
+        long long cont = (dfs(a) * dfs(b)) % mod;;
+        return (comb * cont) % mod;
     }
 public:
     int numOfWays(vector<int>& nums) {
         int size = nums.size();
-        C.resize(size, vector<int>(size, 0));
-        C[0][0] = 1;
+        nCK.resize(size, vector<int>(size, 0));
+        nCK[0][0] = 1;
         for (int i = 1; i < size; ++i) {
-            C[i][0] = 1;
+            nCK[i][0] = 1;
             for (int j = 1; j <= i; ++j)
-                C[i][j] = (C[i - 1][j - 1] + C[i - 1][j]) % MOD;
+                nCK[i][j] = (nCK[i - 1][j - 1] + nCK[i - 1][j]) % mod;
         }
         int res = dfs(nums);
         return res - 1;

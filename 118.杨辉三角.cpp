@@ -3,25 +3,23 @@
  *
  * [118] 杨辉三角
  */
-#include<vector>
+#include <vector>
 using namespace std;
 // @lc code=start
 class Solution {
 public:
     vector<vector<int>> generate(int numRows) {
-        vector<vector<int>> result;
-        vector<int> base;
-        while (numRows--) {
-            vector<int> index(1,1);
-            for (int i = 0; i + 1 < base.size(); i++) {
-                index.push_back(base[i] + base[i + 1]);
+        vector<vector<int>> result(numRows);
+        if (!numRows) return result;
+        result[0].push_back(1);
+        for (int i = 1; i < numRows; i++) {
+            result[i].push_back(1);
+            for (int j = 0; j < result[i - 1].size() - 1; j++) {
+                result[i].push_back(result[i - 1][j] + result[i - 1][j + 1]);
             }
-            if (base.size() != 0) index.push_back(1);
-            base = index;
-            result.push_back(base);
+            result[i].push_back(1);
         }
         return result;
     }
 };
 // @lc code=end
-

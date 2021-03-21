@@ -3,9 +3,9 @@
  *
  * [150] 逆波兰表达式求值
  */
-#include<vector>
-#include<stack>
-#include<string>
+#include <stack>
+#include <string>
+#include <vector>
 using namespace std;
 
 // @lc code=start
@@ -14,42 +14,24 @@ public:
     int evalRPN(vector<string>& tokens) {
         int a = 0;
         std::stack<int> bolan;
-        for(int i = 0; i < tokens.size(); i++)
-        {
-            if(!tokens[i].compare("+"))
-            {
-                a  = bolan.top();
-                bolan.pop();
-                a += bolan.top();
-                bolan.pop();
+        for (int i = 0; i < tokens.size(); i++) {
+            if (!tokens[i].compare("+")) {
+                a = bolan.top(), bolan.pop();
+                a += bolan.top(), bolan.pop();
                 bolan.push(a);
-            }
-            else if(!tokens[i].compare("-"))
-            {
-                a  = bolan.top();
-                bolan.pop();
-                a = bolan.top() - a;
-                bolan.pop();
+            } else if (!tokens[i].compare("-")) {
+                a = bolan.top(), bolan.pop();
+                a = bolan.top() - a, bolan.pop();
                 bolan.push(a);
-            }
-            else if(!tokens[i].compare("*"))
-            {
-                a  = bolan.top();
-                bolan.pop();
-                a *= bolan.top();
-                bolan.pop();
+            } else if (!tokens[i].compare("*")) {
+                a = bolan.top(), bolan.pop();
+                a *= bolan.top(), bolan.pop();
                 bolan.push(a);
-            }
-            else if(!tokens[i].compare("/"))
-            {
-                a  = bolan.top();
-                bolan.pop();
-                a = bolan.top() / a;
-                bolan.pop();
+            } else if (!tokens[i].compare("/")) {
+                a = bolan.top(), bolan.pop();
+                a = bolan.top() / a, bolan.pop();
                 bolan.push(a);
-            }
-            else
-            {
+            } else {
                 bolan.push(atoi(tokens[i].c_str()));
             }
         }
@@ -57,4 +39,3 @@ public:
     }
 };
 // @lc code=end
-

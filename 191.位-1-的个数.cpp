@@ -10,8 +10,7 @@ using namespace std;
 class Solution {
 public:
     int hammingWeight(uint32_t n) {
-        if (n == 0) return 0;
-        return hammingWeight(n & (n - 1)) + 1;
+        return n ? hammingWeight(n & (n - 1)) + 1 : 0;
     }
 };
 // @lc code=end

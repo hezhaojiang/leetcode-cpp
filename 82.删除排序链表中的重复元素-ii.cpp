@@ -5,7 +5,7 @@
  */
 struct ListNode {
     int val;
-    ListNode *next;
+    ListNode* next;
     ListNode(int x) : val(x), next(nullptr) {}
 };
 // @lc code=start
@@ -21,45 +21,23 @@ class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
         ListNode pre_head(0);
-        ListNode* nodeCur = &pre_head;
+        pre_head.next = head;
+        ListNode* pre_node = &pre_head;
 
-        int valCur = 0;
-        int valCnt = 0;
-        ListNode* pre = nullptr;
-
-        if(head)
-        {
-            valCur = head->val;
-        }
-
-        while(head)
-        {
-            if(head->val == valCur)
-            {
-                valCnt++;
-            }
-            else
-            {
-                if(1 == valCnt)
-                {
-                    nodeCur->next = pre;
-                    nodeCur = pre;
+        while (head) {
+            bool needDel = false;
+            ListNode* next = head->next;
+            while (next) {
+                if (next->val != head->val) break;
+                else {
+                    next = (head->next = next->next); // 删除结点
+                    needDel = true;
                 }
-                valCnt = 1;
-                valCur = head->val;
             }
-            pre  = head;
-            head = head->next;
+            if (needDel) head = (pre_node->next = head->next);
+            else pre_node = head, head = next;
         }
-        if(1 == valCnt)
-        {
-            nodeCur->next = pre;
-            nodeCur = pre;
-        }
-
-        nodeCur->next = nullptr;
         return pre_head.next;
     }
 };
 // @lc code=end
-

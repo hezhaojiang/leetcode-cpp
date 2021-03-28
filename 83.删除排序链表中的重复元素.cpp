@@ -6,7 +6,7 @@
 
 struct ListNode {
     int val;
-    ListNode *next;
+    ListNode* next;
     ListNode(int x) : val(x), next(nullptr) {}
 };
 
@@ -23,19 +23,13 @@ class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
         ListNode* nodeCur = head;
-        while(nodeCur && nodeCur->next)
-        {
-            if(nodeCur->val == nodeCur->next->val)
-            {
+        while (nodeCur && nodeCur->next) {
+            if (nodeCur->val == nodeCur->next->val)
                 nodeCur->next = nodeCur->next->next;
-            }
             else
-            {
                 nodeCur = nodeCur->next;
-            }
         }
         return head;
     }
 };
 // @lc code=end
-

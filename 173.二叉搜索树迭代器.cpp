@@ -3,12 +3,12 @@
  *
  * [173] 二叉搜索树迭代器
  */
-#include<vector>
+#include <vector>
 using namespace std;
 struct TreeNode {
     int val;
-    TreeNode *left;
-    TreeNode *right;
+    TreeNode* left;
+    TreeNode* right;
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 // @lc code=start
@@ -24,33 +24,30 @@ struct TreeNode {
 class BSTIterator {
 private:
     vector<TreeNode*> item;
+
 public:
     BSTIterator(TreeNode* root) {
-        while(root)
-        {
+        while (root) {
             item.push_back(root);
             root = root->left;
         }
     }
-    
+
     /** @return the next smallest number */
     int next() {
         TreeNode* ret = item.back();
         int result = ret->val;
         item.pop_back();
         ret = ret->right;
-        while(ret)
-        {
+        while (ret) {
             item.push_back(ret);
             ret = ret->left;
         }
         return result;
     }
-    
+
     /** @return whether we have a next smallest number */
-    bool hasNext() {
-        return !item.empty();
-    }
+    bool hasNext() { return !item.empty(); }
 };
 
 /**
@@ -60,4 +57,3 @@ public:
  * bool param_2 = obj->hasNext();
  */
 // @lc code=end
-

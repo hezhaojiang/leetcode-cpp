@@ -3,15 +3,15 @@
  *
  * [449] 序列化和反序列化二叉搜索树
  */
-#include<iostream>
-#include<vector>
-#include<string>
-#include<sstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <vector>
 using namespace std;
 struct TreeNode {
     int val;
-    TreeNode *left;
-    TreeNode *right;
+    TreeNode* left;
+    TreeNode* right;
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 // @lc code=start
@@ -26,39 +26,33 @@ struct TreeNode {
  */
 class Codec {
 private:
-    void dfs(TreeNode* root, string& s)
-    {
-        if(!root) return;
+    void dfs(TreeNode* root, string& s) {
+        if (!root) return;
         s.append(to_string(root->val) + " ");
         dfs(root->left, s);
         dfs(root->right, s);
         return;
     }
-    void rebuild(TreeNode*& root, stringstream& ss)
-    {
+    void rebuild(TreeNode*& root, stringstream& ss) {
         string t;
-        while(ss >> t)
-        {
+        while (ss >> t) {
             int a = stoi(t);
             TreeNode* node = root;
             TreeNode* pre = nullptr;
-            while(node)
-            {
+            while (node) {
                 pre = node;
-                if(node->val < a) node = node->right;
+                if (node->val < a) node = node->right;
                 else node = node->left;
             }
-            if(pre)
-            {
-                if(pre->val < a) pre->right = new TreeNode(a);
+            if (pre)
+                if (pre->val < a) pre->right = new TreeNode(a);
                 else pre->left = new TreeNode(a);
-            }
             else root = new TreeNode(a);
         }
         return;
     }
-public:
 
+public:
     // Encodes a tree to a single string.
     string serialize(TreeNode* root) {
         string s;
@@ -79,8 +73,7 @@ public:
 // Codec codec;
 // codec.deserialize(codec.serialize(root));
 // @lc code=end
-int main()
-{
+int main() {
     TreeNode a(2);
     TreeNode b(1);
     TreeNode c(3);

@@ -3,15 +3,15 @@
  *
  * [297] 二叉树的序列化与反序列化
  */
-#include<iostream>
-#include<vector>
-#include<string>
-#include<sstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <vector>
 using namespace std;
 struct TreeNode {
     int val;
-    TreeNode *left;
-    TreeNode *right;
+    TreeNode* left;
+    TreeNode* right;
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 // @lc code=start
@@ -26,10 +26,8 @@ struct TreeNode {
  */
 class Codec {
 private:
-    void dfs(TreeNode* root, string& s)
-    {
-        if(!root) 
-        {
+    void dfs(TreeNode* root, string& s) {
+        if (!root) {
             s.append("# ");
             return;
         }
@@ -38,12 +36,10 @@ private:
         dfs(root->right, s);
         return;
     }
-    void rebuild(TreeNode*& node, stringstream& ss)
-    {
+    void rebuild(TreeNode*& node, stringstream& ss) {
         string t;
         ss >> t;
-        if(t[0] == '#')
-        {
+        if (t[0] == '#') {
             node = nullptr;
             return;
         }
@@ -53,6 +49,7 @@ private:
         rebuild(node->right, ss);
         return;
     }
+
 public:
     // Encodes a tree to a single string.
     string serialize(TreeNode* root) {
@@ -74,8 +71,7 @@ public:
 // Codec codec;
 // codec.deserialize(codec.serialize(root));
 // @lc code=end
-int main()
-{
+int main() {
     TreeNode a(1);
     Codec solve;
     string astr = solve.serialize(&a);

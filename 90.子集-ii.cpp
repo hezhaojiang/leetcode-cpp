@@ -3,33 +3,25 @@
  *
  * [90] 子集 II
  */
-#include<vector>
+#include <vector>
+#include <algorithm>
 using namespace std;
 // @lc code=start
 class Solution {
 private:
     vector<vector<int>> result;
+
 public:
-    void backtracking(
-        int i,
-        vector<int>& nums,
-        vector<int>& item,
-        vector<vector<int>>& res
-    )
-    {
+    void backtracking(int i, vector<int>& nums, vector<int>& item, vector<vector<int>>& res) {
         int index = 1;
-        if(0 <= i)
-        {
-            while(0 != i && nums[i - 1] == nums[i])
-            {
-                item.push_back(nums[i]);
+        if (0 <= i) {
+            while (0 != i && nums[i - 1] == nums[i]) {
+                item.push_back(nums[i--]);
                 index++;
-                i--;
             }
             item.push_back(nums[i]);
             backtracking(i - 1, nums, item, res);
-            while(index--)
-            {
+            while (index--) {
                 res.push_back(item);
                 item.pop_back();
                 backtracking(i - 1, nums, item, res);
@@ -37,8 +29,7 @@ public:
         }
         return;
     }
-    vector<vector<int>> subsetsWithDup(vector<int>& nums) 
-    {
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
         sort(nums.begin(), nums.end());
         vector<int> item;
         result.push_back(item);
@@ -47,4 +38,3 @@ public:
     }
 };
 // @lc code=end
-

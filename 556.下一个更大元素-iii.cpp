@@ -4,24 +4,24 @@
  * [556] 下一个更大元素 III
  */
 #include <string>
+#include <algorithm>
 using namespace std;
 // @lc code=start
 class Solution {
 public:
     int nextGreaterElement(int n) {
         string s = to_string(n);
-        if (s.length() < 2) return -1;
-        int N = s.length();
-        for (int i = N - 1; i > 0; i--) {
-            if (s[i - 1] >= s[i]) continue;
-            int j = N - 1;
-            while (s[j] < s[i - 1]) j++;
-            swap(s[i - 1], s[j]);
-            long long res = stoll(s);
-            if (res > INT_MAX) return -1;
-            else return res;
-        }
-        return -1;
+        if (s.length() == 1) return -1;
+        int len = s.length();
+        int l = len - 1, r = len - 1;
+        while (l >= 0 && s[l] >= s[l + 1]) l--;
+        if (l == -1) return -1;
+        while (s[r] <= s[l]) r--;
+        swap(s[l], s[r]);
+        sort(s.begin() + l + 1, s.end());
+        long long res = stoll(s);
+        if (res > INT_MAX) return -1;
+        else return res;
     }
 };
 // @lc code=end

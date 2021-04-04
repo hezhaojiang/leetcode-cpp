@@ -5,25 +5,17 @@
  */
 #include<vector>
 #include<algorithm>
+#include<unordered_map>
 using namespace std;
 // @lc code=start
 class Solution {
 public:
     int numRabbits(vector<int>& answers) {
-        int last = 0, rest = 0, num = 0;
-        sort(answers.begin(), answers.end());
-        for (int i = 0; i < answers.size(); i++) {
-            if (rest == 0 || last != answers[i]) {
-                last = answers[i];
-                rest = answers[i];
-                num += answers[i] + 1;
-            }
-            else {
-                last = answers[i];
-                rest--;
-            }
-        }
-        return num;
+        int res = 0;
+        unordered_map<int, int> mp;
+        for (auto a : answers) mp[a]++;
+        for (auto& [x, y] : mp) res += (x + y) / (x + 1) * (x + 1);
+        return res;
     }
 };
 // @lc code=end

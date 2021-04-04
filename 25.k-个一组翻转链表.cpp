@@ -16,7 +16,7 @@ struct ListNode {
  * struct ListNode {
  *     int val;
  *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
  * };
  */
 class Solution {
@@ -31,7 +31,7 @@ public:
             ListNode* knode = head;
             while (knode && ++index != k) knode = knode->next;
             if (index == k) { /* 存在 k 个节点 */
-                ListNode* next = NULL;
+                ListNode* next = nullptr;
                 for (int i = 0; i < k; i++) {
                     next = head->next;
                     head->next = posIn->next;
@@ -43,7 +43,7 @@ public:
             else { /* 剩余不足 k 个节点 */
                 while (posIn->next) posIn = posIn->next;
                 posIn->next = head;
-                head = NULL;
+                head = nullptr;
             }
         }
         return newHead.next;

@@ -11,7 +11,7 @@ struct TreeNode {
     int val;
     TreeNode *left;
     TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
 // @lc code=start
 /**
@@ -20,7 +20,7 @@ struct TreeNode {
  *     int val;
  *     TreeNode *left;
  *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
  * };
  */
 class Solution {
@@ -45,7 +45,7 @@ private:
     void printEdge (TreeNode* root) {
         root = rightReverse(root); // 逆
         TreeNode *head = root;
-        while (head != NULL) {
+        while (head != nullptr) {
             result.push_back(head->val);
             head = head->right;
         }

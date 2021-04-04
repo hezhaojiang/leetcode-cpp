@@ -6,7 +6,7 @@
 struct ListNode {
     int val;
     ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
+    ListNode(int x) : val(x), next(nullptr) {}
 };
 // @lc code=start
 /**
@@ -14,7 +14,7 @@ struct ListNode {
  * struct ListNode {
  *     int val;
  *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
  * };
  */
 class Solution {

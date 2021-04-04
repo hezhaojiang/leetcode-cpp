@@ -23,8 +23,8 @@ public:
 
     Node(int _val) {
         val = _val;
-        next = NULL;
-        random = NULL;
+        next = nullptr;
+        random = nullptr;
     }
 };
 */

@@ -28,10 +28,11 @@ public:
     vector<vector<int>> levelOrder(TreeNode* root) {
         vector<vector<int>> result;
         if (!root) return result;
+
         queue<TreeNode*> Que;
-        vector<int> item;
         Que.push(root);
         while (!Que.empty()) {
+            vector<int> item;
             int count = Que.size();
             for (int i = 0; i < count; i++) {
                 TreeNode* curQ = Que.front();
@@ -40,8 +41,7 @@ public:
                 item.push_back(curQ->val);
                 Que.pop();
             }
-            result.push_back(item);
-            item.clear();
+            result.push_back(std::move(item));
         }
         return result;
     }

@@ -9,29 +9,19 @@ using namespace std;
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
-        if(!nums.size()) return -1;
-        int start = 0;
-        int end = nums.size() - 1;
-        int mid = start + (end - start) / 2;
-        while(start + 1 < end)
-        {
-            if(nums[mid] == target) return mid;
-            else if (nums[mid] >= nums[start]) {
-                if(target >= nums[start] && target < nums[mid])
-                    end = mid;
-                else
-                    start = mid;
+        if (nums.empty()) return -1;
+        int l = 0, r = nums.size() - 1;
+        while (l <= r) {
+            int mid = l + r >> 1;
+            if (nums[mid] == target) return mid;
+            if (target > nums[r]) {
+                if (nums[l] <= nums[mid] && nums[mid] < target) l = mid + 1;
+                else r = mid - 1;
+            } else {
+                if (target < nums[mid] && nums[mid] <= nums[r]) r = mid - 1;
+                else l = mid + 1;
             }
-            else {
-                if(target <= nums[end] && target > nums[mid])
-                    start = mid;
-                else
-                    end = mid;
-            }
-            mid = start + (end - start) / 2;
         }
-        if (nums[start] == target) return start;
-        else if (nums[end] == target) return end;
         return -1;
     }
 };

@@ -11,16 +11,14 @@ class Solution {
 public:
     int findMin(vector<int>& nums) {
         if (!nums.size()) return INT_MIN;
-        int start = 0;
-        int end = nums.size() - 1;
-        while (start + 1 < end) {
-            int mid = start + (end - start) / 2;
-            /* 增加对相等值得比较 */
-            if (nums[mid] == nums[end]) end--;
-            else if (nums[mid] > nums[end])  start = mid;
-            else end = mid;
+        int l = 0, r = nums.size() - 1;
+        while (l <= r) {
+            int mid = l + r >> 1;
+            if (nums[mid] == nums[r]) r--;
+            else if (nums[mid] > nums[r]) l = mid + 1;
+            else r = mid;
         }
-        return min(nums[start], nums[end]);
+        return nums[l];
     }
 };
 // @lc code=end

@@ -20,12 +20,7 @@ struct ListNode {
 class Solution {
 public:
     void deleteNode(ListNode* node) {
-#ifdef hezhaojiang
-        node->val = node->next->val;
-        node->next = node->next->next;
-#endif
         *node = *(node->next);
-        return;
     }
 };
 // @lc code=end
